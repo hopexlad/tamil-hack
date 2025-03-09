@@ -70,10 +70,8 @@ document.addEventListener("DOMContentLoaded", function () {
             const wordDiv = document.createElement("div");
             wordDiv.classList.add("word-box");
             wordDiv.innerHTML = `
-                <p>
-                    <strong>${word.tamil}</strong> (${word.transliteration}) - <em>${word.english}</em>
-                    <button class="audio-btn" onclick="playAudio('${word.audio}')">🔊</button>
-                </p>
+                <p><strong>${word.tamil}</strong> (${word.transliteration}) - <em>${word.english}</em></p>
+                <button class="audio-btn" onclick="playAudio('${word.audio}')">🔊</button>
             `;
             container.appendChild(wordDiv);
         });
