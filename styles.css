@@ -1,52 +1,55 @@
+/* Modern Minimalist UI */
+
+:root {
+    --primary-color: #4a90e2;
+    --secondary-color: #50c878;
+    --background-color: #f4f4f9;
+    --text-color: #333;
+    --card-bg: #ffffff;
+    --shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    --border-radius: 12px;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     text-align: center;
-    background-color: #f4f4f9;
+    background-color: var(--background-color);
     margin: 0;
     padding: 0;
-    color: #333;
+    color: var(--text-color);
 }
 
 h1, h2 {
-    color: #222;
     font-weight: 600;
 }
 
 button {
-    background-color: #4a90e2;
+    background: var(--primary-color);
     color: white;
     border: none;
     padding: 12px 18px;
-    margin: 10px;
+    margin: 12px;
     font-size: 16px;
-    border-radius: 8px;
+    font-weight: 500;
+    border-radius: var(--border-radius);
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    box-shadow: var(--shadow);
 }
 
 button:hover {
-    background-color: #357ABD;
-    transform: scale(1.05);
-}
-
-#lessonPage {
-    display: none;
+    background: #3a7bc1;
+    transform: translateY(-2px);
 }
 
 .card {
-    background: white;
+    background: var(--card-bg);
     padding: 24px;
     margin: 20px auto;
     width: 85%;
-    max-width: 450px;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-5px);
+    max-width: 420px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
 }
 
 #canvasContainer {
@@ -54,15 +57,15 @@ button:hover {
 }
 
 canvas {
-    border: 2px solid #4a90e2;
+    border: 3px solid var(--text-color);
     background: white;
-    margin-top: 10px;
-    border-radius: 8px;
+    margin-top: 12px;
+    border-radius: var(--border-radius);
 }
 
 #listLessons {
     text-align: left;
-    margin: 20px auto;
+    margin: 24px auto;
     width: 85%;
     max-width: 520px;
 }
@@ -73,31 +76,25 @@ canvas {
 }
 
 #wordsList li {
-    background: white;
+    background: var(--card-bg);
     margin: 12px 0;
-    padding: 12px 16px;
-    border-radius: 8px;
+    padding: 14px;
+    border-radius: var(--border-radius);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease;
-}
-
-#wordsList li:hover {
-    transform: scale(1.03);
+    box-shadow: var(--shadow);
 }
 
 .word {
     font-size: 18px;
     font-weight: 600;
-    color: #222;
 }
 
 #backBtn, #nextBtn {
-    background-color: #5cb85c;
+    background: var(--secondary-color);
 }
 
 #backBtn:hover, #nextBtn:hover {
-    background-color: #449d44;
+    background: #3da864;
 }
