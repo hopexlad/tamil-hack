@@ -11,26 +11,26 @@
         <h1>Tamil Tutor</h1>
         
         <h2>Tamil Letters</h2>
-        <button id="uyirBtn">UYIR YELUTHUKKAL</button>
-        <button id="meiBtn">MEI YELUTHUKKAL</button>
+        <button onclick="loadLessons('uyir')">UYIR YELUTHUKKAL</button>
+        <button onclick="loadLessons('mei')">MEI YELUTHUKKAL</button>
 
         <h2>Basics</h2>
-        <button id="wordsBtn">SIMPLE WORDS</button>
-        <button id="greetingsBtn">GREETINGS</button>
+        <button onclick="loadLessons('words')">SIMPLE WORDS</button>
+        <button onclick="loadLessons('greetings')">GREETINGS</button>
     </div>
 
     <div id="lessonPage" style="display: none;">
         <button onclick="goHome()">🏠 Home</button>
         <h2 id="lessonTitle"></h2>
-        
+
         <div id="canvasContainer" style="display: none;">
             <canvas id="writingCanvas" width="300" height="300"></canvas>
             <button onclick="clearCanvas()">Clear</button>
         </div>
 
-        <div id="lessonContent"></div> <!-- This will load content dynamically -->
+        <div id="lessonContent"></div>
 
-        <button id="backBtn" onclick="prevLesson()">Back</button>
+        <button id="prevBtn" onclick="prevLesson()">Back</button>
         <button id="nextBtn" onclick="nextLesson()">Next</button>
         <audio id="audioPlayer"></audio>
     </div>
