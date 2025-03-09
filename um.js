@@ -1,16 +1,3 @@
-document.getElementById("uyirBtn").addEventListener("click", function () {
-    loadLessons('uyir');
-});
-document.getElementById("meiBtn").addEventListener("click", function () {
-    loadLessons('mei');
-});
-document.getElementById("wordsBtn").addEventListener("click", function () {
-    loadLessons('words');
-});
-document.getElementById("greetingsBtn").addEventListener("click", function () {
-    loadLessons('greetings');
-});
-
 const lessonsData = {
     uyir: [
         { tamil: "அ", transliteration: "a", audio: "audio/a.mp3" },
