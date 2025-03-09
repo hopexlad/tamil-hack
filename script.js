@@ -13,9 +13,15 @@ let currentLesson = 0;
 let currentLessons = [];
 const canvas = document.getElementById("writingCanvas");
 const ctx = canvas.getContext("2d");
+ctx.lineJoin = "round";
+ctx.lineCap = "round";
+ctx.strokeStyle = "black";
+ctx.lineWidth = 5;
+
 let isDrawing = false;
-let lastX = 0, lastY = 0;
-let lastTimestamp = 0;
+let lastX = 0;
+let lastY = 0;
+let points = [];
 
 function goToLessons(type) {
     currentLessons = type === 'uyir' ? uyirLessons : maeiLessons;
@@ -61,45 +67,53 @@ function clearCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
+// 🖋️ **Start Drawing**
 function startDrawing(event) {
     event.preventDefault();
     isDrawing = true;
-    [lastX, lastY] = getCoordinates(event);
-    lastTimestamp = event.timeStamp;
+    points = [];
+    const [x, y] = getCoordinates(event);
+    points.push({ x, y });
 }
 
+// 🖋️ **Stop Drawing**
 function stopDrawing() {
     isDrawing = false;
-    ctx.beginPath();
+    points = [];
 }
 
+// 🖋️ **Smooth Draw Function**
 function draw(event) {
     if (!isDrawing) return;
     event.preventDefault();
+    
+    const [x, y] = getCoordinates(event);
+    points.push({ x, y });
 
-    let [x, y] = getCoordinates(event);
-    let now = event.timeStamp;
-    let timeDiff = now - lastTimestamp;
+    if (points.length < 3) {
+        const point = points[0];
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, ctx.lineWidth / 2, 0, Math.PI * 2);
+        ctx.fill();
+        return;
+    }
 
-    ctx.lineWidth = Math.min(5 + timeDiff / 50, 8); // Dynamic width adjustment
-    ctx.lineCap = "round";
-    ctx.strokeStyle = "black";
-
-    // Midpoint interpolation for smoother drawing
-    let midX = (lastX + x) / 2;
-    let midY = (lastY + y) / 2;
-
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Remove previous frame (important for smoothing)
+    
     ctx.beginPath();
-    ctx.moveTo(lastX, lastY);
-    ctx.quadraticCurveTo(midX, midY, x, y);
+    ctx.moveTo(points[0].x, points[0].y);
+
+    // Draw using Bezier curves for smooth strokes
+    for (let i = 1; i < points.length - 2; i++) {
+        let midX = (points[i].x + points[i + 1].x) / 2;
+        let midY = (points[i].y + points[i + 1].y) / 2;
+        ctx.quadraticCurveTo(points[i].x, points[i].y, midX, midY);
+    }
+
     ctx.stroke();
-
-    [lastX, lastY] = [x, y];
-    lastTimestamp = now;
-
-    requestAnimationFrame(() => draw(event)); // Ensures smooth rendering
 }
 
+// **Get Cursor/Tap Position**
 function getCoordinates(event) {
     let rect = canvas.getBoundingClientRect();
     if (event.touches) {
@@ -110,10 +124,12 @@ function getCoordinates(event) {
     }
 }
 
-// Prevent scrolling while drawing
-canvas.addEventListener("touchstart", startDrawing, { passive: false });
-canvas.addEventListener("touchmove", draw, { passive: false });
-canvas.addEventListener("touchend", stopDrawing);
+// 🚀 **Event Listeners for Smooth Mobile Drawing**
 canvas.addEventListener("mousedown", startDrawing);
 canvas.addEventListener("mousemove", draw);
 canvas.addEventListener("mouseup", stopDrawing);
+canvas.addEventListener("mouseout", stopDrawing);
+
+canvas.addEventListener("touchstart", startDrawing, { passive: false });
+canvas.addEventListener("touchmove", draw, { passive: false });
+canvas.addEventListener("touchend", stopDrawing);
