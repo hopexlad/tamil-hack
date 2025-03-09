@@ -62,7 +62,7 @@ button:hover {
 canvas {
     border: 2px solid black;
     background: white;
-    max-width: 90%; /* Prevents overflow */
+   width: 420;
 }
 
 
