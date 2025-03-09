@@ -14,21 +14,38 @@ document.addEventListener("DOMContentLoaded", function () {
         ]
     };
 
-    window.loadWords = function (type) {
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    function loadWords(type) {
         const container = document.getElementById("wordContainer");
+        const categoryTitle = document.getElementById("categoryTitle");
+
+        if (!wordsData[type]) {
+            categoryTitle.innerText = "Category Not Found";
+            return;
+        }
+
+        categoryTitle.innerText = type === "simple" ? "Simple Words" : "Greetings";
         container.innerHTML = ""; // Clear previous content
 
         wordsData[type].forEach(word => {
             const wordDiv = document.createElement("div");
             wordDiv.innerHTML = `
                 <p><strong>${word.tamil}</strong> (${word.transliteration}) - <em>${word.english}</em></p>
-                <button onclick="playAudio('${word.audio}')">🔊 Pronounce</button>
+                <button onclick="playAudio('${word.audio}')">🔊</button>
             `;
             container.appendChild(wordDiv);
         });
-    };
+    }
 
     window.playAudio = function (audioSrc) {
         new Audio(audioSrc).play();
     };
+
+    // Load words based on URL parameter
+    const category = getQueryParam("category");
+    if (category) loadWords(category);
 });
