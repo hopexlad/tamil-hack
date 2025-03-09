@@ -49,9 +49,10 @@ window.onload = function () {
         nextBtn.disabled = true; // Disable Next button initially
     }
 
-  function checkAnswer(button, selectedOption, correctAnswer) {
+function checkAnswer(button, selectedOption, correctAnswer) {
     if (selectedOption === correctAnswer) {
         button.style.backgroundColor = "green"; // ✅ Correct Answer
+        score++; // 🔥 Increment score when correct
     } else {
         button.style.backgroundColor = "red"; // ❌ Wrong Answer
     }
