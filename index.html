@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamil Tutor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="homePage">
+        <h1>Learn Tamil</h1>
+        <button onclick="goToLessons('uyir')">UYIR YELUTHUKKAL</button>
+        <button onclick="goToLessons('maei')">MAEI YELUTHUKKAL</button>
+    </div>
+
+    <div id="lessonPage">
+        <button onclick="goHome()">🏠 Home</button>
+        <h2 id="lessonTitle"></h2>
+        <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+        <div class="card">
+            <h2 id="tamilCharacter">அ</h2>
+            <p id="transliteration">a</p>
+            <button onclick="playAudio()">🔊 Pronounce</button>
+            <canvas id="writingCanvas" width="300" height="300"></canvas>
+            <br>
+            <button onclick="clearCanvas()">Clear</button>
+        </div>
+        <br>
+        <button id="backBtn" onclick="prevLesson()">Back</button>
+        <button id="nextBtn" onclick="nextLesson()">Next</button>
+        <audio id="audioPlayer"></audio>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
