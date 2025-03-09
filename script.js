@@ -14,8 +14,8 @@ let currentLessons = [];
 const canvas = document.getElementById("writingCanvas");
 const ctx = canvas.getContext("2d");
 let isDrawing = false;
-let lastX = 0;
-let lastY = 0;
+let lastX = 0, lastY = 0;
+let lastTimestamp = 0;
 
 function goToLessons(type) {
     currentLessons = type === 'uyir' ? uyirLessons : maeiLessons;
@@ -62,8 +62,10 @@ function clearCanvas() {
 }
 
 function startDrawing(event) {
+    event.preventDefault();
     isDrawing = true;
     [lastX, lastY] = getCoordinates(event);
+    lastTimestamp = event.timeStamp;
 }
 
 function stopDrawing() {
@@ -73,15 +75,29 @@ function stopDrawing() {
 
 function draw(event) {
     if (!isDrawing) return;
+    event.preventDefault();
+
     let [x, y] = getCoordinates(event);
-    ctx.lineWidth = 5;
+    let now = event.timeStamp;
+    let timeDiff = now - lastTimestamp;
+
+    ctx.lineWidth = Math.min(5 + timeDiff / 50, 8); // Dynamic width adjustment
     ctx.lineCap = "round";
     ctx.strokeStyle = "black";
+
+    // Midpoint interpolation for smoother drawing
+    let midX = (lastX + x) / 2;
+    let midY = (lastY + y) / 2;
+
     ctx.beginPath();
     ctx.moveTo(lastX, lastY);
-    ctx.lineTo(x, y);
+    ctx.quadraticCurveTo(midX, midY, x, y);
     ctx.stroke();
+
     [lastX, lastY] = [x, y];
+    lastTimestamp = now;
+
+    requestAnimationFrame(() => draw(event)); // Ensures smooth rendering
 }
 
 function getCoordinates(event) {
@@ -94,9 +110,10 @@ function getCoordinates(event) {
     }
 }
 
-canvas.addEventListener("mousedown", startDrawing);
-canvas.addEventListener("mouseup", stopDrawing);
-canvas.addEventListener("mousemove", draw);
-canvas.addEventListener("touchstart", startDrawing);
+// Prevent scrolling while drawing
+canvas.addEventListener("touchstart", startDrawing, { passive: false });
+canvas.addEventListener("touchmove", draw, { passive: false });
 canvas.addEventListener("touchend", stopDrawing);
-canvas.addEventListener("touchmove", draw);
+canvas.addEventListener("mousedown", startDrawing);
+canvas.addEventListener("mousemove", draw);
+canvas.addEventListener("mouseup", stopDrawing);
