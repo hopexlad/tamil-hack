@@ -35,12 +35,15 @@ function loadLessons(type) {
         type === "words" ? "SIMPLE WORDS" : "GREETINGS";
 
     document.getElementById("canvasContainer").style.display = (type === "uyir" || type === "mei") ? "block" : "none";
+    document.getElementById("progressBarContainer").style.display = (type === "uyir" || type === "mei") ? "block" : "none";
+    document.getElementById("nextBtn").style.display = (type === "words" || type === "greetings") ? "none" : "block";
     
     updateLesson(type);
 }
 
 function updateLesson(type) {
     let content = document.getElementById("lessonContent");
+    let progressBar = document.getElementById("progressBar");
 
     if (type === "uyir" || type === "mei") {
         content.innerHTML = `
@@ -51,6 +54,7 @@ function updateLesson(type) {
             </div>
         `;
         document.getElementById("audioPlayer").src = currentLessons[currentLesson].audio;
+        progressBar.value = (currentLesson + 1) / currentLessons.length * 100;
     } else {
         content.innerHTML = `
             <ul id="wordsList">
@@ -90,12 +94,14 @@ function goHome() {
     document.getElementById("homePage").style.display = "block";
 }
 
-// Canvas Drawing
+// Canvas Drawing Improvements
 const canvas = document.getElementById("writingCanvas");
 const ctx = canvas ? canvas.getContext("2d") : null;
 let isDrawing = false;
+let lastX = 0, lastY = 0;
 
 if (canvas) {
+    canvas.style.border = "2px solid black";
     canvas.addEventListener("mousedown", startDrawing);
     canvas.addEventListener("mouseup", stopDrawing);
     canvas.addEventListener("mousemove", draw);
@@ -107,26 +113,31 @@ if (canvas) {
 
 function startDrawing(event) {
     isDrawing = true;
-    draw(event);
+    [lastX, lastY] = getCoords(event);
 }
 
 function stopDrawing() {
     isDrawing = false;
-    ctx.beginPath();
 }
 
 function draw(event) {
     if (!isDrawing) return;
-    let x = event.offsetX || event.touches[0].clientX - canvas.getBoundingClientRect().left;
-    let y = event.offsetY || event.touches[0].clientY - canvas.getBoundingClientRect().top;
-    
-    ctx.lineWidth = 5;
+    let [x, y] = getCoords(event);
+    ctx.lineWidth = 3;
     ctx.lineCap = "round";
     ctx.strokeStyle = "black";
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
     ctx.lineTo(x, y);
     ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(x, y);
+    [lastX, lastY] = [x, y];
+}
+
+function getCoords(event) {
+    let rect = canvas.getBoundingClientRect();
+    let x = event.clientX || event.touches[0].clientX;
+    let y = event.clientY || event.touches[0].clientY;
+    return [x - rect.left, y - rect.top];
 }
 
 function clearCanvas() {
