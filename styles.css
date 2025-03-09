@@ -122,27 +122,26 @@ canvas {
     cursor: not-allowed;
     opacity: 0.7;
 }
-const style = document.createElement("style");
-style.innerHTML = `
-    .word-box {
-        border: 2px solid #ddd;
-        border-radius: 10px;
-        padding: 10px;
-        margin: 10px 0;
-        background-color: #f9f9f9;
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    }
+.word-box {
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #f9f9f9;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
-    .audio-btn {
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-size: 20px;
-        margin-left: 10px;
-    }
+.audio-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    margin-left: 10px;
+}
 
-    .audio-btn:hover {
-        transform: scale(1.1);
-    }
-`;
-document.head.appendChild(style);
+.audio-btn:hover {
+    transform: scale(1.1);
+}
