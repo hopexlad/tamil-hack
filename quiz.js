@@ -1,59 +1,61 @@
 document.addEventListener("DOMContentLoaded", function () {
     const quizData = [
-        {
-            question: "What is the Tamil word for 'Tiger'?",
-            choices: ["யானை", "புலி", "காகம்", "நண்டு"],
-            answer: "புலி"
+        { 
+            question: "What is the Tamil word for 'Tiger'?", 
+            options: ["புலி", "யானை", "நாய்", "மாடு"], 
+            correct: "புலி"
         },
-        {
-            question: "How do you say 'Good Morning' in Tamil?",
-            choices: ["நன்றி", "வணக்கம்", "காலை வணக்கம்", "இரவு வணக்கம்"],
-            answer: "காலை வணக்கம்"
-        },
-        {
-            question: "Which of these is a Fruit?",
-            choices: ["மாம்பழம்", "யானை", "கேரட்", "நண்டு"],
-            answer: "மாம்பழம்"
-        },
-        {
-            question: "Which of these is a Bird?",
-            choices: ["சிட்டுக்குருவி", "நண்டு", "புலி", "வாழைப்பழம்"],
-            answer: "சிட்டுக்குருவி"
-        },
-        {
-            question: "Which color represents 'Sivappu'?",
-            choices: ["🔴", "🟢", "🔵", "⚫"],
-            answer: "🔴"
+        { 
+            question: "What is the Tamil word for 'Blue'?", 
+            options: ["சிவப்பு", "பச்சை", "நீலம்", "மஞ்சள்"], 
+            correct: "நீலம்"
         }
     ];
 
-    function loadQuiz() {
-        const quizContainer = document.getElementById("quizContainer");
-        quizContainer.innerHTML = ""; // Clear previous content
+    let currentQuestionIndex = 0;
 
-        const randomQuestion = quizData[Math.floor(Math.random() * quizData.length)];
+    function loadQuestion() {
+        const questionContainer = document.getElementById("questionText");
+        const optionsContainer = document.getElementById("optionsContainer");
 
-        const questionElement = document.createElement("h2");
-        questionElement.innerText = randomQuestion.question;
+        const currentQuestion = quizData[currentQuestionIndex];
+        questionContainer.innerText = currentQuestion.question;
 
-        quizContainer.appendChild(questionElement);
-
-        randomQuestion.choices.forEach(choice => {
-            const choiceButton = document.createElement("button");
-            choiceButton.innerText = choice;
-            choiceButton.onclick = () => checkAnswer(choice, randomQuestion.answer);
-            quizContainer.appendChild(choiceButton);
+        optionsContainer.innerHTML = "";
+        currentQuestion.options.forEach(option => {
+            const button = document.createElement("button");
+            button.innerText = option;
+            button.classList.add("option-btn");
+            button.onclick = function () { checkAnswer(button, option, currentQuestion.correct); };
+            optionsContainer.appendChild(button);
         });
     }
 
-    function checkAnswer(selected, correct) {
-        if (selected === correct) {
-            alert("✅ Correct!");
+    function checkAnswer(button, selectedOption, correctAnswer) {
+        if (selectedOption === correctAnswer) {
+            button.style.backgroundColor = "green"; // ✅ Correct Answer
         } else {
-            alert("❌ Wrong! The correct answer is: " + correct);
+            button.style.backgroundColor = "red"; // ❌ Wrong Answer
         }
-        loadQuiz(); // Load next question
+
+        // Disable all buttons after answering
+        document.querySelectorAll(".option-btn").forEach(btn => {
+            btn.disabled = true;
+            if (btn.innerText === correctAnswer) {
+                btn.style.backgroundColor = "green"; // Always show the correct one in green
+            }
+        });
     }
 
-    loadQuiz(); // Load first quiz question
+    function nextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < quizData.length) {
+            loadQuestion();
+        } else {
+            alert("Quiz Completed!");
+            window.location.href = "index.html";
+        }
+    }
+
+    loadQuestion(); // Load first question on page load
 });
