@@ -1,14 +1,19 @@
 /* Modern Minimalist UI */
 
 :root {
-    --primary-color: #4a90e2;
-    --secondary-color: #50c878;
-    --background-color: #f4f4f9;
-    --text-color: #333;
-    --card-bg: #ffffff;
-    --shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    --border-radius: 12px;
+    --primary-color: #2C3E50; /* Deep Slate Blue */
+    --secondary-color: #27AE60; /* Rich Natural Green */
+    --accent-color: #F5B041; /* Warm Orange */
+
+    --background-color: #FAF3E0; /* Soft Cream */
+    --text-color: #2C3E50; /* Dark Blue for contrast */
+    --card-bg: #FFFFFF; /* Clean White */
+    --input-bg: #F0E5D8; /* Light Sand */
+
+    --shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); /* Soft natural shadow */
+    --border-radius: 16px; /* Softer modern look */
 }
+
 
 body {
     font-family: 'Poppins', sans-serif;
