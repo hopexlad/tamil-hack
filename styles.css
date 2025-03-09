@@ -10,7 +10,7 @@
     --card-bg: #FFFFFF; /* Clean White */
     --input-bg: #F0E5D8; /* Light Sand */
 
-    --shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); /* Soft natural shadow */
+    --shadow: 0px 4px 12px rgba(0, 0, 0, 0.33); /* Soft natural shadow */
     --border-radius: 16px; /* Softer modern look */
 }
 
