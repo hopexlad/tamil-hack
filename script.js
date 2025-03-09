@@ -48,7 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("progressBar").style.width =
             ((currentLesson + 1) / currentLessons.length) * 100 + "%";
 
-        // ✅ FIXED: Using backticks
         document.getElementById("progressText").textContent = `${currentLesson + 1}/${currentLessons.length}`;
 
         clearCanvas();
@@ -123,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     canvas.addEventListener("touchstart", startDrawing, { passive: false });
     canvas.addEventListener("touchmove", draw, { passive: false });
-    canvas.addEventListener("touchend", stopDrawing });
+    canvas.addEventListener("touchend", stopDrawing); // ✅ Fixed Syntax Error
 
     window.goToLessons = goToLessons;
     window.goHome = goHome;
