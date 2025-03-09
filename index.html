@@ -16,6 +16,7 @@
         <button onclick="goHome()">🏠 Home</button>
         <h2 id="lessonTitle"></h2>
         <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+
         <div class="card">
             <h2 id="tamilCharacter"></h2>
             <p id="transliteration"></p>
@@ -23,12 +24,18 @@
             <canvas id="writingCanvas" width="300" height="300"></canvas>
             <br>
             <button onclick="clearCanvas()">Clear</button>
+            
+            <!-- 🛠️ Moved Next & Back buttons inside the card -->
+            <div class="navigation">
+                <button id="backBtn" onclick="prevLesson()">Back</button>
+                <span id="progressText">1/3</span>
+                <button id="nextBtn" onclick="nextLesson()">Next</button>
+            </div>
         </div>
-        <br>
-        <button id="backBtn" onclick="prevLesson()">Back</button>
-        <button id="nextBtn" onclick="nextLesson()">Next</button>
+
         <audio id="audioPlayer"></audio>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
