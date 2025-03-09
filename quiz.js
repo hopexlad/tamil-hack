@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+window.onload = function () {
     const allQuestions = [
         { question: "What is the Tamil word for 'Tiger'?", options: ["புலி", "யானை", "நாய்", "மாடு"], correct: "புலி" },
         { question: "What is the Tamil word for 'Blue'?", options: ["சிவப்பு", "பச்சை", "நீலம்", "மஞ்சள்"], correct: "நீலம்" },
@@ -16,9 +16,14 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentQuestionIndex = 0;
     let score = 0;
 
+    // Select elements
+    const questionText = document.getElementById("questionText");
+    const optionsContainer = document.getElementById("optionsContainer");
+    const progressText = document.getElementById("progressText");
+    const nextBtn = document.getElementById("nextBtn");
+
     function getRandomQuestions() {
-        let shuffled = allQuestions.sort(() => 0.5 - Math.random());
-        return shuffled.slice(0, 10); // Pick 10 random questions
+        return allQuestions.sort(() => 0.5 - Math.random()).slice(0, 10);
     }
 
     function loadQuestion() {
@@ -27,13 +32,9 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        const questionContainer = document.getElementById("questionText");
-        const optionsContainer = document.getElementById("optionsContainer");
-        const progressText = document.getElementById("progressText");
-
         let currentQuestion = selectedQuestions[currentQuestionIndex];
-        questionContainer.innerText = currentQuestion.question;
-        progressText.innerText = `${currentQuestionIndex + 1}/10`; // Progress display
+        questionText.innerText = currentQuestion.question;
+        progressText.innerText = `${currentQuestionIndex + 1}/10`;
 
         optionsContainer.innerHTML = "";
         currentQuestion.options.forEach(option => {
@@ -44,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
             optionsContainer.appendChild(button);
         });
 
-        document.getElementById("nextBtn").disabled = true; // Disable Next button initially
+        nextBtn.disabled = true; // Disable Next button initially
     }
 
     function checkAnswer(button, selectedOption, correctAnswer) {
@@ -55,15 +56,14 @@ document.addEventListener("DOMContentLoaded", function () {
             button.style.backgroundColor = "red"; // ❌ Wrong Answer
         }
 
-        // Disable all buttons after answering
         document.querySelectorAll(".option-btn").forEach(btn => {
             btn.disabled = true;
             if (btn.innerText === correctAnswer) {
-                btn.style.backgroundColor = "green"; // Show the correct answer
+                btn.style.backgroundColor = "green"; // Highlight correct answer
             }
         });
 
-        document.getElementById("nextBtn").disabled = false; // Enable Next button
+        nextBtn.disabled = false; // Enable Next button
     }
 
     function nextQuestion() {
@@ -72,12 +72,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function showResults() {
-        const quizPage = document.getElementById("quizPage");
-        quizPage.innerHTML = `<h1>Quiz Completed!</h1>
-                              <h2>Your Score: ${score}/10</h2>
-                              <p>${getFeedbackMessage(score)}</p>
-                              <button onclick="location.reload()">Play Again</button>
-                              <button onclick="window.location.href='index.html'">Home</button>`;
+        document.getElementById("quizPage").innerHTML = `<h1>Quiz Completed!</h1>
+            <h2>Your Score: ${score}/10</h2>
+            <p>${getFeedbackMessage(score)}</p>
+            <button onclick="location.reload()">Play Again</button>
+            <button onclick="window.location.href='index.html'">🏠 Home</button>`;
     }
 
     function getFeedbackMessage(score) {
@@ -86,8 +85,8 @@ document.addEventListener("DOMContentLoaded", function () {
         return "😐 Keep improving! Try again.";
     }
 
-    document.getElementById("nextBtn").addEventListener("click", nextQuestion);
+    nextBtn.addEventListener("click", nextQuestion);
 
-    selectedQuestions = getRandomQuestions(); // Pick 10 random questions
+    selectedQuestions = getRandomQuestions();
     loadQuestion();
-});
+};
