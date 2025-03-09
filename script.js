@@ -17,9 +17,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const canvas = document.getElementById("writingCanvas");
     const ctx = canvas.getContext("2d");
 
-    // ✅ Ensure canvas size is set properly
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
+    // ✅ Ensure canvas size is set properly after DOM loads
+    function setCanvasSize() {
+        canvas.width = canvas.clientWidth || 300; // Default width if clientWidth is 0
+        canvas.height = canvas.clientHeight || 300; // Default height if clientHeight is 0
+    }
+
+    setCanvasSize(); // Set size initially
+    window.addEventListener("resize", setCanvasSize); // Adjust on window resize
 
     ctx.lineJoin = "round";
     ctx.lineCap = "round";
@@ -36,6 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
             type === "uyir" ? "UYIR YELUTHUKKAL" : "MAEI YELUTHUKKAL";
         document.getElementById("homePage").style.display = "none";
         document.getElementById("lessonPage").style.display = "block";
+        canvas.style.display = "block"; // ✅ Ensure the canvas is visible
         currentLesson = 0;
         updateLesson();
     }
@@ -52,7 +58,6 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("progressBar").style.width =
             ((currentLesson + 1) / currentLessons.length) * 100 + "%";
 
-        // ✅ Fix: Use template literals correctly
         document.getElementById("progressText").textContent = `${currentLesson + 1}/${currentLessons.length}`;
 
         clearCanvas();
@@ -128,13 +133,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     canvas.addEventListener("touchstart", startDrawing, { passive: false });
     canvas.addEventListener("touchmove", draw, { passive: false });
-    canvas.addEventListener("touchend", stopDrawing); // ✅ Fix: Removed incorrect bracket
+    canvas.addEventListener("touchend", stopDrawing);
 
-    // ✅ Expose functions to global scope
+    // ✅ Ensure functions are accessible globally
     window.goToLessons = goToLessons;
     window.goHome = goHome;
     window.playAudio = playAudio;
     window.nextLesson = nextLesson;
     window.prevLesson = prevLesson;
-    window.clearCanvas = clearCanvas; // ✅ Ensure it's accessible globally
+    window.clearCanvas = clearCanvas;
 });
