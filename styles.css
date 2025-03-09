@@ -1,50 +1,86 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    padding: 20px;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
 }
-.card {
-    display: inline-block;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
+
+h1, h2 {
+    color: #333;
 }
-.progress {
-    width: 60%;
-    height: 10px;
-    background: #ddd;
-    margin: 10px auto;
-    border-radius: 5px;
-    position: relative;
-}
-.progress-bar {
-    height: 100%;
-    width: 0;
-    background: green;
-    border-radius: 5px;
-}
+
 button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    border: none;
-    background: blue;
+    background-color: #007bff;
     color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 10px;
     font-size: 16px;
-    cursor: pointer;
     border-radius: 5px;
+    cursor: pointer;
 }
-button:disabled {
-    background: gray;
-    cursor: not-allowed;
+
+button:hover {
+    background-color: #0056b3;
 }
-canvas {
-    border: 2px solid black;
-    margin-top: 10px;
-    cursor: crosshair;
-    touch-action: none;
-}
+
 #lessonPage {
     display: none;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#canvasContainer {
+    margin-top: 10px;
+}
+
+canvas {
+    border: 2px solid #333;
+    background: white;
+    margin-top: 10px;
+}
+
+#listLessons {
+    text-align: left;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 500px;
+}
+
+#wordsList {
+    list-style: none;
+    padding: 0;
+}
+
+#wordsList li {
+    background: white;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.word {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#backBtn, #nextBtn {
+    background-color: #28a745;
+}
+
+#backBtn:hover, #nextBtn:hover {
+    background-color: #1e7e34;
 }
