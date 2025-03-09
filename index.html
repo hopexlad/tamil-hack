@@ -7,7 +7,60 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div id="homePage"><!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamil Tutor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
     <div id="homePage">
+        <h1>Learn Tamil</h1>
+        <button onclick="goToLessons('uyir')">உயிர் எழுத்துக்கள்</button>
+        <button onclick="goToLessons('mei')">மெய் எழுத்துக்கள்</button>
+        
+        <h2>Basics</h2>
+        <button onclick="goToLessons('words')">SIMPLE WORDS</button>
+        <button onclick="goToLessons('greetings')">GREETINGS</button>
+    </div>
+
+    <div id="lessonPage">
+        <button onclick="goHome()">🏠 Home</button>
+        <h2 id="lessonTitle"></h2>
+
+        <!-- Uyir & Mei Ezhuthukkal (One at a time + Canvas) -->
+        <div id="singleLesson" class="card">
+            <h2 id="tamilCharacter"></h2>
+            <p id="transliteration"></p>
+            <button onclick="playAudio()">🔊 Pronounce</button>
+
+            <!-- Writing Canvas (Only for Uyir & Mei) -->
+            <div id="canvasContainer">
+                <canvas id="writingCanvas" width="300" height="300"></canvas>
+                <br>
+                <button onclick="clearCanvas()">Clear</button>
+            </div>
+
+            <br>
+            <button id="backBtn" onclick="prevLesson()">Back</button>
+            <button id="nextBtn" onclick="nextLesson()">Next</button>
+        </div>
+
+        <!-- Simple Words & Greetings (List View) -->
+        <div id="listLessons">
+            <ul id="wordsList"></ul>
+        </div>
+
+        <audio id="audioPlayer"></audio>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="basics.js"></script>
+</body>
+</html>
+
         <h1>Learn Tamil</h1>
         <button onclick="goToLessons('uyir')">UYIR YELUTHUKKAL</button>
         <button onclick="goToLessons('maei')">MAEI YELUTHUKKAL</button>
