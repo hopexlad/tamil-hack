@@ -1,28 +1,33 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     text-align: center;
-    background-color: #f8f9fa;
+    background-color: #f4f4f9;
     margin: 0;
     padding: 0;
-}
-
-h1, h2 {
     color: #333;
 }
 
+h1, h2 {
+    color: #222;
+    font-weight: 600;
+}
+
 button {
-    background-color: #007bff;
+    background-color: #4a90e2;
     color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 12px 18px;
     margin: 10px;
     font-size: 16px;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #357ABD;
+    transform: scale(1.05);
 }
 
 #lessonPage {
@@ -31,29 +36,35 @@ button:hover {
 
 .card {
     background: white;
-    padding: 20px;
+    padding: 24px;
     margin: 20px auto;
-    width: 80%;
-    max-width: 400px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 85%;
+    max-width: 450px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
 }
 
 #canvasContainer {
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 canvas {
-    border: 2px solid #333;
+    border: 2px solid #4a90e2;
     background: white;
     margin-top: 10px;
+    border-radius: 8px;
 }
 
 #listLessons {
     text-align: left;
     margin: 20px auto;
-    width: 80%;
-    max-width: 500px;
+    width: 85%;
+    max-width: 520px;
 }
 
 #wordsList {
@@ -63,24 +74,30 @@ canvas {
 
 #wordsList li {
     background: white;
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 5px;
+    margin: 12px 0;
+    padding: 12px 16px;
+    border-radius: 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+#wordsList li:hover {
+    transform: scale(1.03);
 }
 
 .word {
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 600;
+    color: #222;
 }
 
 #backBtn, #nextBtn {
-    background-color: #28a745;
+    background-color: #5cb85c;
 }
 
 #backBtn:hover, #nextBtn:hover {
-    background-color: #1e7e34;
+    background-color: #449d44;
 }
