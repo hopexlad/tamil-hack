@@ -17,6 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const canvas = document.getElementById("writingCanvas");
     const ctx = canvas.getContext("2d");
 
+    // ✅ Ensure canvas size is set properly
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
     ctx.lineJoin = "round";
     ctx.lineCap = "round";
     ctx.strokeStyle = "black";
@@ -48,6 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("progressBar").style.width =
             ((currentLesson + 1) / currentLessons.length) * 100 + "%";
 
+        // ✅ Fix: Use template literals correctly
         document.getElementById("progressText").textContent = `${currentLesson + 1}/${currentLessons.length}`;
 
         clearCanvas();
@@ -115,6 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return { x, y };
     }
 
+    // ✅ Attach event listeners correctly
     canvas.addEventListener("mousedown", startDrawing);
     canvas.addEventListener("mousemove", draw);
     canvas.addEventListener("mouseup", stopDrawing);
@@ -122,11 +128,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     canvas.addEventListener("touchstart", startDrawing, { passive: false });
     canvas.addEventListener("touchmove", draw, { passive: false });
-    canvas.addEventListener("touchend", stopDrawing); // ✅ Fixed Syntax Error
+    canvas.addEventListener("touchend", stopDrawing); // ✅ Fix: Removed incorrect bracket
 
+    // ✅ Expose functions to global scope
     window.goToLessons = goToLessons;
     window.goHome = goHome;
     window.playAudio = playAudio;
     window.nextLesson = nextLesson;
     window.prevLesson = prevLesson;
+    window.clearCanvas = clearCanvas; // ✅ Ensure it's accessible globally
 });
