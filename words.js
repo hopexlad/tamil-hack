@@ -68,9 +68,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         wordsData[type].forEach(word => {
             const wordDiv = document.createElement("div");
+            wordDiv.classList.add("word-box");
             wordDiv.innerHTML = `
-                <p><strong>${word.tamil}</strong> (${word.transliteration}) - <em>${word.english}</em></p>
-                <button onclick="playAudio('${word.audio}')">🔊</button>
+                <p>
+                    <strong>${word.tamil}</strong> (${word.transliteration}) - <em>${word.english}</em>
+                    <button class="audio-btn" onclick="playAudio('${word.audio}')">🔊</button>
+                </p>
             `;
             container.appendChild(wordDiv);
         });
