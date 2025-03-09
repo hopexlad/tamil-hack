@@ -103,8 +103,8 @@ canvas {
     background: #3da864;
 }
 .option-btn {
-    display: block;
-    width: 100%;
+    display: unset;
+    width: 60%;
     padding: 10px;
     margin: 5px 0;
     border: none;
