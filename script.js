@@ -13,6 +13,8 @@ let currentLesson = 0;
 let currentLessons = [];
 const canvas = document.getElementById("writingCanvas");
 const ctx = canvas.getContext("2d");
+
+// 🛠️ **Canvas Setup**
 ctx.lineJoin = "round";
 ctx.lineCap = "round";
 ctx.strokeStyle = "black";
@@ -21,8 +23,8 @@ ctx.lineWidth = 5;
 let isDrawing = false;
 let lastX = 0;
 let lastY = 0;
-let points = [];
 
+// 📖 **Lesson Functions**
 function goToLessons(type) {
     currentLessons = type === 'uyir' ? uyirLessons : maeiLessons;
     document.getElementById("lessonTitle").textContent = type === 'uyir' ? "UYIR YELUTHUKKAL" : "MAEI YELUTHUKKAL";
@@ -67,69 +69,56 @@ function clearCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-// 🖋️ **Start Drawing**
+// ✍️ **Drawing Functions**
 function startDrawing(event) {
-    event.preventDefault();
+    event.preventDefault();  // 🚫 **Prevent scrolling on mobile**
     isDrawing = true;
-    points = [];
-    const [x, y] = getCoordinates(event);
-    points.push({ x, y });
+    const { x, y } = getCoordinates(event);
+    lastX = x;
+    lastY = y;
 }
 
-// 🖋️ **Stop Drawing**
 function stopDrawing() {
     isDrawing = false;
-    points = [];
 }
 
-// 🖋️ **Smooth Draw Function**
+// **Smooth Drawing Function**
 function draw(event) {
     if (!isDrawing) return;
-    event.preventDefault();
+    event.preventDefault();  // 🚫 **Prevent unwanted touch scrolling**
     
-    const [x, y] = getCoordinates(event);
-    points.push({ x, y });
-
-    if (points.length < 3) {
-        const point = points[0];
-        ctx.beginPath();
-        ctx.arc(point.x, point.y, ctx.lineWidth / 2, 0, Math.PI * 2);
-        ctx.fill();
-        return;
-    }
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Remove previous frame (important for smoothing)
-    
+    const { x, y } = getCoordinates(event);
     ctx.beginPath();
-    ctx.moveTo(points[0].x, points[0].y);
-
-    // Draw using Bezier curves for smooth strokes
-    for (let i = 1; i < points.length - 2; i++) {
-        let midX = (points[i].x + points[i + 1].x) / 2;
-        let midY = (points[i].y + points[i + 1].y) / 2;
-        ctx.quadraticCurveTo(points[i].x, points[i].y, midX, midY);
-    }
-
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(x, y);
     ctx.stroke();
+    lastX = x;
+    lastY = y;
 }
 
-// **Get Cursor/Tap Position**
+// **Get Coordinates (Mouse & Touch)**
 function getCoordinates(event) {
     let rect = canvas.getBoundingClientRect();
+    let x, y;
+
     if (event.touches) {
         let touch = event.touches[0];
-        return [touch.clientX - rect.left, touch.clientY - rect.top];
+        x = touch.clientX - rect.left;
+        y = touch.clientY - rect.top;
     } else {
-        return [event.offsetX, event.offsetY];
+        x = event.offsetX;
+        y = event.offsetY;
     }
+    return { x, y };
 }
 
-// 🚀 **Event Listeners for Smooth Mobile Drawing**
+// 🚀 **Attach Event Listeners**
 canvas.addEventListener("mousedown", startDrawing);
 canvas.addEventListener("mousemove", draw);
 canvas.addEventListener("mouseup", stopDrawing);
 canvas.addEventListener("mouseout", stopDrawing);
 
+// 🚀 **Mobile Touch Events**
 canvas.addEventListener("touchstart", startDrawing, { passive: false });
 canvas.addEventListener("touchmove", draw, { passive: false });
 canvas.addEventListener("touchend", stopDrawing);
