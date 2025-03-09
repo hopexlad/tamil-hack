@@ -10,6 +10,7 @@ window.onload = function () {
         { question: "What is the Tamil word for 'Rain'?", options: ["நீர்", "மழை", "காற்று", "அலை"], correct: "மழை" },
         { question: "What is the Tamil word for 'Fish'?", options: ["மீன்", "நாய்", "பன்றி", "யானை"], correct: "மீன்" },
         { question: "What is the Tamil word for 'Red'?", options: ["பச்சை", "சிவப்பு", "நீலம்", "மஞ்சள்"], correct: "சிவப்பு" }
+
     ];
 
     let selectedQuestions = [];
@@ -48,23 +49,28 @@ window.onload = function () {
         nextBtn.disabled = true; // Disable Next button initially
     }
 
-    function checkAnswer(button, selectedOption, correctAnswer) {
-        if (selectedOption === correctAnswer) {
-            button.style.backgroundColor = "green"; // ✅ Correct Answer
-            score++;
-        } else {
-            button.style.backgroundColor = "red"; // ❌ Wrong Answer
-        }
-
-        document.querySelectorAll(".option-btn").forEach(btn => {
-            btn.disabled = true;
-            if (btn.innerText === correctAnswer) {
-                btn.style.backgroundColor = "green"; // Highlight correct answer
-            }
-        });
-
-        nextBtn.disabled = false; // Enable Next button
+   function checkAnswer(button, selectedOption, correctAnswer) {
+    if (selectedOption === correctAnswer) {
+        button.style.backgroundColor = "green"; // ✅ Correct Answer
+        score++;
+    } else {
+        button.style.backgroundColor = "red"; // ❌ Wrong Answer
     }
+
+    document.querySelectorAll(".option-btn").forEach(btn => {
+        btn.disabled = true;
+        if (btn.innerText === correctAnswer) {
+            btn.style.backgroundColor = "green"; // Highlight correct answer
+        }
+    });
+
+    // Automatically move to the next question after 1.5 seconds
+    setTimeout(() => {
+        currentQuestionIndex++;
+        loadQuestion();
+    }, 1500);
+}
+
 
     function nextQuestion() {
         currentQuestionIndex++;
