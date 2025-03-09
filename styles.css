@@ -56,15 +56,16 @@ button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh; /* Adjust as needed */
+    height: 70vh; /* Centers vertically */
 }
 
 canvas {
     border: 2px solid black;
     background: white;
-   width: 420;
+    width: 300px; /* 🔹 Smaller for mobile */
+    height: 300px;
+    touch-action: none; /* Prevents page scrolling while drawing */
 }
-
 
 #listLessons {
     text-align: left;
