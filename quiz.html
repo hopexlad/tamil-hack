@@ -9,11 +9,12 @@
 <body>
     <div id="quizPage">
         <h1>Tamil Quiz</h1>
+        <div id="progressText">1/10</div> <!-- Progress Indicator -->
         <div id="questionContainer">
             <p id="questionText"></p>
             <div id="optionsContainer"></div>
         </div>
-        <button onclick="nextQuestion()">Next</button>
+        <button id="nextBtn" disabled>Next</button>
         <button onclick="window.location.href='index.html'">Home</button>
     </div>
 
