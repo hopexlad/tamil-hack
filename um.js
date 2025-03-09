@@ -4,7 +4,7 @@ const uyirLessons = [
     { tamil: "இ", transliteration: "i", audio: "audio/i.mp3" }
 ];
 
-const maeiLessons = [
+const meiLessons = [
     { tamil: "க", transliteration: "ka", audio: "audio/ka.mp3" },
     { tamil: "ங", transliteration: "nga", audio: "audio/nga.mp3" },
     { tamil: "ச", transliteration: "cha", audio: "audio/cha.mp3" }
@@ -12,17 +12,45 @@ const maeiLessons = [
 
 let currentLesson = 0;
 let currentLessons = [];
+
+const canvasContainer = document.getElementById("canvasContainer");
 const canvas = document.getElementById("writingCanvas");
 const ctx = canvas.getContext("2d");
 let isDrawing = false;
 
 function goToLessons(type) {
-    currentLessons = type === 'uyir' ? uyirLessons : maeiLessons;
-    document.getElementById("lessonTitle").textContent = type === 'uyir' ? "UYIR YELUTHUKKAL" : "MAEI YELUTHUKKAL";
     document.getElementById("homePage").style.display = "none";
     document.getElementById("lessonPage").style.display = "block";
-    currentLesson = 0;
-    updateLesson();
+
+    if (type === 'uyir') {
+        currentLessons = uyirLessons;
+        document.getElementById("lessonTitle").textContent = "உயிர் எழுத்துக்கள்";
+        document.getElementById("singleLesson").style.display = "block";
+        document.getElementById("listLessons").style.display = "none";
+        canvasContainer.style.display = "block"; // Show canvas
+        currentLesson = 0;
+        updateLesson();
+    } else if (type === 'mei') {
+        currentLessons = meiLessons;
+        document.getElementById("lessonTitle").textContent = "மெய் எழுத்துக்கள்";
+        document.getElementById("singleLesson").style.display = "block";
+        document.getElementById("listLessons").style.display = "none";
+        canvasContainer.style.display = "block"; // Show canvas
+        currentLesson = 0;
+        updateLesson();
+    } else {
+        document.getElementById("singleLesson").style.display = "none";
+        document.getElementById("listLessons").style.display = "block";
+        document.getElementById("wordsList").innerHTML = "";
+
+        if (type === 'words') {
+            document.getElementById("lessonTitle").textContent = "SIMPLE WORDS";
+            addWordsToList(wordsLessons);
+        } else if (type === 'greetings') {
+            document.getElementById("lessonTitle").textContent = "GREETINGS";
+            addWordsToList(greetingsLessons);
+        }
+    }
 }
 
 function goHome() {
@@ -34,7 +62,6 @@ function updateLesson() {
     document.getElementById("tamilCharacter").textContent = currentLessons[currentLesson].tamil;
     document.getElementById("transliteration").textContent = currentLessons[currentLesson].transliteration;
     document.getElementById("audioPlayer").src = currentLessons[currentLesson].audio;
-    document.getElementById("progressBar").style.width = ((currentLesson + 1) / currentLessons.length) * 100 + "%";
     clearCanvas();
 }
 
@@ -60,40 +87,23 @@ function clearCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-function startDrawing(event) {
-    isDrawing = true;
-    draw(event);
+// List View for Words & Greetings
+function addWordsToList(lessonList) {
+    let listContainer = document.getElementById("wordsList");
+    listContainer.innerHTML = "";
+
+    lessonList.forEach((lesson) => {
+        let listItem = document.createElement("li");
+        listItem.innerHTML = `
+            <span class="word">${lesson.tamil} - ${lesson.transliteration}</span>
+            <button onclick="playAudioFile('${lesson.audio}')">🔊 Pronounce</button>
+        `;
+        listContainer.appendChild(listItem);
+    });
 }
 
-function stopDrawing() {
-    isDrawing = false;
-    ctx.beginPath();
+function playAudioFile(audioSrc) {
+    let audioPlayer = document.getElementById("audioPlayer");
+    audioPlayer.src = audioSrc;
+    audioPlayer.play();
 }
-
-function draw(event) {
-    if (!isDrawing) return;
-    let x, y;
-    if (event.touches) {
-        let touch = event.touches[0];
-        x = touch.clientX - canvas.getBoundingClientRect().left;
-        y = touch.clientY - canvas.getBoundingClientRect().top;
-    } else {
-        x = event.offsetX;
-        y = event.offsetY;
-    }
-    ctx.lineWidth = 5;
-    ctx.lineCap = "round";
-    ctx.strokeStyle = "black";
-    ctx.lineTo(x, y);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-}
-
-canvas.addEventListener("mousedown", startDrawing);
-canvas.addEventListener("mouseup", stopDrawing);
-canvas.addEventListener("mousemove", draw);
-canvas.addEventListener("touchstart", startDrawing);
-canvas.addEventListener("touchend", stopDrawing);
-canvas.addEventListener("touchmove", draw);
-
