@@ -1,39 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ta">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tamil Quiz</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        .question-container {
-            margin-top: 20px;
-        }
-        button {
-            margin: 5px;
-            padding: 10px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div id="quizPage">
+        <h1>Tamil Quiz</h1>
+        <div id="questionContainer">
+            <p id="questionText"></p>
+            <div id="optionsContainer"></div>
+        </div>
+        <button onclick="nextQuestion()">Next</button>
+        <button onclick="window.location.href='index.html'">Home</button>
+    </div>
 
-    <h1>Quiz</h1>
-
-    <div id="quizContainer" class="question-container"></div>
-
-    <button onclick="goHome()">Home</button>
-
-    <script src="quiz.js"></script>
-    <script>
-        function goHome() {
-            window.location.href = "index.html";
-        }
-    </script>
-
+    <script src="quiz.js"></script> <!-- Linking the Quiz Logic -->
 </body>
 </html>
