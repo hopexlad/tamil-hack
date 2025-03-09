@@ -44,6 +44,10 @@ function updateLesson() {
     document.getElementById("transliteration").textContent = currentLessons[currentLesson].transliteration;
     document.getElementById("audioPlayer").src = currentLessons[currentLesson].audio;
     document.getElementById("progressBar").style.width = ((currentLesson + 1) / currentLessons.length) * 100 + "%";
+    
+    // 🔥 **Update Progress Text (Example: "1/3")**
+    document.getElementById("progressText").textContent = ${currentLesson + 1}/${currentLessons.length};
+    
     clearCanvas();
 }
 
