@@ -49,26 +49,22 @@ window.onload = function () {
         nextBtn.disabled = true; // Disable Next button initially
     }
 
-   function checkAnswer(button, selectedOption, correctAnswer) {
+  function checkAnswer(button, selectedOption, correctAnswer) {
     if (selectedOption === correctAnswer) {
         button.style.backgroundColor = "green"; // ✅ Correct Answer
-        score++;
     } else {
         button.style.backgroundColor = "red"; // ❌ Wrong Answer
     }
 
     document.querySelectorAll(".option-btn").forEach(btn => {
         btn.disabled = true;
+        btn.style.cursor = "default"; // Prevents pointer change
         if (btn.innerText === correctAnswer) {
             btn.style.backgroundColor = "green"; // Highlight correct answer
         }
     });
 
-    // Automatically move to the next question after 1.5 seconds
-    setTimeout(() => {
-        currentQuestionIndex++;
-        loadQuestion();
-    }, 1500);
+    setTimeout(nextQuestion, 1000); // Auto-move to next question
 }
 
 
