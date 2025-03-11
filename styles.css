@@ -45,6 +45,7 @@ button:hover {
 .navbar {
     display: flex;
     justify-content: center;
+    gap: 20px;
     background: var(--background-color);
     padding: 10px;
     position: relative;
@@ -77,6 +78,7 @@ button:hover {
 .nav-link.active::after {
     width: 100%;
 }
+
 
 
 #homePage.active ~ .indicator {
