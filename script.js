@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentLesson = 0;
     let currentLessons = [];
 
-    document.addEventListener("DOMContentLoaded", function () {
+    // ✅ Navigation Buttons Sliding Effect
     const pages = ["homePage", "quizPage"];
     const indicator = document.querySelector(".indicator");
 
@@ -35,13 +35,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ✅ Ensure function is globally accessible
     window.showPage = showPage;
-});
-
 
     // ✅ Lessons Navigation
     function goToLessons(type) {
         currentLessons = (type === "uyir") ? uyirLessons : maeiLessons;
-        document.getElementById("lessonTitle").textContent = 
+        document.getElementById("lessonTitle").textContent =
             (type === "uyir") ? "UYIR YELUTHUKKAL" : "MAEI YELUTHUKKAL";
         showPage("lessonPage");
         if (canvas) canvas.style.display = "block";
@@ -57,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("tamilCharacter").textContent = currentLessons[currentLesson].tamil;
         document.getElementById("transliteration").textContent = currentLessons[currentLesson].transliteration;
         document.getElementById("audioPlayer").src = currentLessons[currentLesson].audio;
-        document.getElementById("progressBar").style.width = 
+        document.getElementById("progressBar").style.width =
             ((currentLesson + 1) / currentLessons.length) * 100 + "%";
 
         document.getElementById("progressText").textContent = `${currentLesson + 1}/${currentLessons.length}`;
@@ -159,7 +157,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ✅ Ensure functions are globally accessible
-    window.showPage = showPage;
     window.goToLessons = goToLessons;
     window.goHome = goHome;
     window.playAudio = playAudio;
