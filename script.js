@@ -14,51 +14,31 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentLesson = 0;
     let currentLessons = [];
 
-    const canvas = document.getElementById("writingCanvas");
-    const ctx = canvas.getContext("2d");
+    // ✅ Function to switch pages properly
+    function showPage(pageId) {
+        document.getElementById("homePage").style.display = "none";
+        document.getElementById("quizPage").style.display = "none";
+        document.getElementById("lessonPage").style.display = "none"; // ✅ Added lessonPage hiding
 
-    // ✅ Ensure canvas size is set properly after DOM loads
-    function setCanvasSize() {
-        canvas.width = canvas.clientWidth || 300; // Default width if clientWidth is 0
-        canvas.height = canvas.clientHeight || 300; // Default height if clientHeight is 0
+        document.getElementById(pageId).style.display = "block";
     }
 
-    setCanvasSize(); // Set size initially
-    window.addEventListener("resize", setCanvasSize); // Adjust on window resize
-
-    ctx.lineJoin = "round";
-    ctx.lineCap = "round";
-    ctx.strokeStyle = "black";
-    ctx.lineWidth = 5;
-
-    let isDrawing = false;
-    let lastX = 0;
-    let lastY = 0;
-function showPage(pageId) {
-    document.getElementById("homePage").style.display = "none";
-    document.getElementById("quizPage").style.display = "none";
-    document.getElementById(pageId).style.display = "block";
-}
-
-// Default to show "Learn Tamil" page
-document.addEventListener("DOMContentLoaded", function () {
+    // ✅ Ensure "Learn Tamil" is the default page on load
     showPage("homePage");
-});
 
+    // ✅ Lessons Navigation
     function goToLessons(type) {
         currentLessons = type === "uyir" ? uyirLessons : maeiLessons;
         document.getElementById("lessonTitle").textContent =
             type === "uyir" ? "UYIR YELUTHUKKAL" : "MAEI YELUTHUKKAL";
-        document.getElementById("homePage").style.display = "none";
-        document.getElementById("lessonPage").style.display = "block";
-        canvas.style.display = "block"; // ✅ Ensure the canvas is visible
+        showPage("lessonPage"); // ✅ Use showPage instead of manual display settings
+        if (canvas) canvas.style.display = "block";
         currentLesson = 0;
         updateLesson();
     }
 
     function goHome() {
-        document.getElementById("lessonPage").style.display = "none";
-        document.getElementById("homePage").style.display = "block";
+        showPage("homePage");
     }
 
     function updateLesson() {
@@ -69,7 +49,6 @@ document.addEventListener("DOMContentLoaded", function () {
             ((currentLesson + 1) / currentLessons.length) * 100 + "%";
 
         document.getElementById("progressText").textContent = `${currentLesson + 1}/${currentLessons.length}`;
-
         clearCanvas();
     }
 
@@ -91,65 +70,87 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function clearCanvas() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
+    // ✅ Fix: Prevent Canvas Errors on Pages Without Canvas
+    const canvas = document.getElementById("writingCanvas");
+    if (canvas) {
+        const ctx = canvas.getContext("2d");
 
-    function startDrawing(event) {
-        event.preventDefault();
-        isDrawing = true;
-        const { x, y } = getCoordinates(event);
-        lastX = x;
-        lastY = y;
-    }
-
-    function stopDrawing() {
-        isDrawing = false;
-    }
-
-    function draw(event) {
-        if (!isDrawing) return;
-        event.preventDefault();
-
-        const { x, y } = getCoordinates(event);
-        ctx.beginPath();
-        ctx.moveTo(lastX, lastY);
-        ctx.lineTo(x, y);
-        ctx.stroke();
-        lastX = x;
-        lastY = y;
-    }
-
-    function getCoordinates(event) {
-        let rect = canvas.getBoundingClientRect();
-        let x, y;
-
-        if (event.touches) {
-            let touch = event.touches[0];
-            x = touch.clientX - rect.left;
-            y = touch.clientY - rect.top;
-        } else {
-            x = event.offsetX;
-            y = event.offsetY;
+        function setCanvasSize() {
+            canvas.width = canvas.clientWidth || 300; 
+            canvas.height = canvas.clientHeight || 300;
         }
-        return { x, y };
+        setCanvasSize();
+        window.addEventListener("resize", setCanvasSize);
+
+        ctx.lineJoin = "round";
+        ctx.lineCap = "round";
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 5;
+
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function startDrawing(event) {
+            event.preventDefault();
+            isDrawing = true;
+            const { x, y } = getCoordinates(event);
+            lastX = x;
+            lastY = y;
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+        }
+
+        function draw(event) {
+            if (!isDrawing) return;
+            event.preventDefault();
+
+            const { x, y } = getCoordinates(event);
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            lastX = x;
+            lastY = y;
+        }
+
+        function getCoordinates(event) {
+            let rect = canvas.getBoundingClientRect();
+            let x, y;
+
+            if (event.touches) {
+                let touch = event.touches[0];
+                x = touch.clientX - rect.left;
+                y = touch.clientY - rect.top;
+            } else {
+                x = event.offsetX;
+                y = event.offsetY;
+            }
+            return { x, y };
+        }
+
+        // ✅ Attach event listeners safely (only if canvas exists)
+        canvas.addEventListener("mousedown", startDrawing);
+        canvas.addEventListener("mousemove", draw);
+        canvas.addEventListener("mouseup", stopDrawing);
+        canvas.addEventListener("mouseout", stopDrawing);
+
+        canvas.addEventListener("touchstart", startDrawing, { passive: false });
+        canvas.addEventListener("touchmove", draw, { passive: false });
+        canvas.addEventListener("touchend", stopDrawing);
     }
 
-    // ✅ Attach event listeners correctly
-    canvas.addEventListener("mousedown", startDrawing);
-    canvas.addEventListener("mousemove", draw);
-    canvas.addEventListener("mouseup", stopDrawing);
-    canvas.addEventListener("mouseout", stopDrawing);
-
-    canvas.addEventListener("touchstart", startDrawing, { passive: false });
-    canvas.addEventListener("touchmove", draw, { passive: false });
-    canvas.addEventListener("touchend", stopDrawing);
-
-    // ✅ Ensure functions are accessible globally
+    // ✅ Ensure functions are globally accessible
     window.goToLessons = goToLessons;
     window.goHome = goHome;
     window.playAudio = playAudio;
     window.nextLesson = nextLesson;
     window.prevLesson = prevLesson;
-    window.clearCanvas = clearCanvas;
+    if (canvas) window.clearCanvas = clearCanvas;
 });
