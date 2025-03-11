@@ -42,45 +42,42 @@ button:hover {
     transform: translateY(-2px);
 }
 
-/* 🔹 Navigation Bar with Sliding Effect */
 .navbar {
     display: flex;
     justify-content: center;
-    position: relative;
     background: var(--background-color);
     padding: 10px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-    margin-bottom: 20px;
+    position: relative;
 }
 
-.navbar button {
-    background: none;
+.nav-link {
+    text-decoration: none;
     color: var(--text-color);
-    border: none;
-    padding: 10px 20px;
-    margin: 5px;
     font-size: 18px;
     font-weight: 600;
-    cursor: pointer;
+    padding: 10px 15px;
     position: relative;
     transition: color 0.3s ease-in-out;
 }
 
-.navbar button:hover {
-    color: var(--primary-color);
+.nav-link::after {
+    content: "";
+    display: block;
+    height: 3px;
+    width: 0;
+    background: var(--primary-color);
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: width 0.3s ease-in-out;
 }
 
-/* 🔹 Sliding Active Indicator */
-.navbar .indicator {
-    position: absolute;
-    bottom: 0;
-    height: 5px;
-    background: var(--primary-color);
-    width: 50%;
-    border-radius: 10px;
-    transition: transform 0.3s ease-in-out;
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
 }
+
 
 #homePage.active ~ .indicator {
     transform: translateX(0);
