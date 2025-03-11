@@ -14,16 +14,29 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentLesson = 0;
     let currentLessons = [];
 
-    // ✅ Function to switch pages properly
+    document.addEventListener("DOMContentLoaded", function () {
+    const pages = ["homePage", "quizPage"];
+    const indicator = document.querySelector(".indicator");
+
     function showPage(pageId) {
-        const pages = ["homePage", "quizPage", "lessonPage"];
         pages.forEach(id => {
             document.getElementById(id).style.display = (id === pageId) ? "block" : "none";
         });
+
+        if (pageId === "homePage") {
+            indicator.style.transform = "translateX(0)";
+        } else if (pageId === "quizPage") {
+            indicator.style.transform = "translateX(100%)";
+        }
     }
 
-    // ✅ Default: Show "Learn Tamil" Page
+    // ✅ Default Page
     showPage("homePage");
+
+    // ✅ Ensure function is globally accessible
+    window.showPage = showPage;
+});
+
 
     // ✅ Lessons Navigation
     function goToLessons(type) {
