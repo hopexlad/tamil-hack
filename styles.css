@@ -1,19 +1,14 @@
-/* Modern Minimalist UI */
-
 :root {
-    --primary-color: #2C3E50; /* Deep Slate Blue */
-    --secondary-color: #27AE60; /* Rich Natural Green */
-    --accent-color: #F5B041; /* Warm Orange */
-
-    --background-color: #FAF3E0; /* Soft Cream */
-    --text-color: #2C3E50; /* Dark Blue for contrast */
-    --card-bg: #FFFFFF; /* Clean White */
-    --input-bg: #F0E5D8; /* Light Sand */
-
-    --shadow: 0px 4px 12px rgba(0, 0, 0, 0.33); /* Soft natural shadow */
-    --border-radius: 16px; /* Softer modern look */
+    --primary-color: #2C3E50;
+    --secondary-color: #27AE60;
+    --accent-color: #F5B041;
+    --background-color: #FAF3E0;
+    --text-color: #2C3E50;
+    --card-bg: #FFFFFF;
+    --input-bg: #F0E5D8;
+    --shadow: 0px 4px 12px rgba(0, 0, 0, 0.33);
+    --border-radius: 16px;
 }
-
 
 body {
     font-family: 'Poppins', sans-serif;
@@ -47,6 +42,65 @@ button:hover {
     transform: translateY(-2px);
 }
 
+/* 🔹 Navigation Bar with Sliding Effect */
+.navbar {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    background: var(--background-color);
+    padding: 10px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+}
+
+.navbar button {
+    background: none;
+    color: var(--text-color);
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar button:hover {
+    color: var(--primary-color);
+}
+
+/* 🔹 Sliding Active Indicator */
+.navbar .indicator {
+    position: absolute;
+    bottom: 0;
+    height: 5px;
+    background: var(--primary-color);
+    width: 50%;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+#homePage.active ~ .indicator {
+    transform: translateX(0);
+}
+
+#quizPage.active ~ .indicator {
+    transform: translateX(100%);
+}
+
+/* 🔹 Section Divider */
+.section-divider {
+    width: 50%;
+    height: 2px;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0), #333, rgba(0, 0, 0, 0));
+    margin: 10px auto;
+    border: none;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* 🔹 Centered Content */
 .card {
     background: var(--card-bg);
     padding: 24px;
@@ -57,120 +111,50 @@ button:hover {
     box-shadow: var(--shadow);
 }
 
+/* 🔹 Canvas Centering */
 #canvasContainer {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 70vh; /* Centers vertically */
+    height: 70vh;
 }
 
 canvas {
     border: 2px solid black;
     background: white;
-    width: 300px; /* 🔹 Smaller for mobile */
-    height: 300px;
-    touch-action: none; /* Prevents page scrolling while drawing */
+    width: 280px;
+    height: 280px;
+    touch-action: none;
 }
 
-#listLessons {
-    text-align: left;
-    margin: 24px auto;
-    width: 85%;
-    max-width: 520px;
-}
-
-#wordsList {
-    list-style: none;
-    padding: 0;
-}
-
-#wordsList li {
-    background: var(--card-bg);
-    margin: 12px 0;
-    padding: 14px;
+/* 🔹 Word Boxes */
+.word-box {
+    border: 1px solid var(--primary-color);
     border-radius: var(--border-radius);
+    padding: 8px;
+    margin: 6px 0;
+    background-color: var(--card-bg);
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     box-shadow: var(--shadow);
 }
 
-.word {
-    font-size: 18px;
-    font-weight: 600;
-}
-.navbar {
-    display: flex;
-    justify-content: center;
-    background:  var(--background-color);
-    padding: 10px;
-}
-
-.navbar button {
-    background: var(--primary-color);ol
-    border: none;
-    padding: 10px 15px;
-    margin: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-}
-
-.navbar button:hover {
-    background: #3a7bc1;
-}
-
-#backBtn, #nextBtn {
-    background: var(--secondary-color);
-}
-
-#backBtn:hover, #nextBtn:hover {
-    background: #3da864;
-}
-.section-divider {
-    width: 50%;
-    height: 2px;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0), #333, rgba(0, 0, 0, 0)); 
-    margin: 10px auto;
-    border: none;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-}
-
+/* 🔹 Option Buttons */
 .option-btn {
-    display: unset;
-    width: 55%;
+    display: block;
+    width: 90%;
     padding: 10px;
-    margin: 5px 0;
+    margin: 5px auto;
     border: none;
     cursor: pointer;
     font-size: 16px;
     background-color: var(--primary-color);
+    color: white;
+    text-align: center;
 }
 
 .option-btn:disabled {
     cursor: not-allowed;
     opacity: 0.7;
-}
-.word-box {
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 10px 0;
-    background-color: #f9f9f9;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.audio-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 20px;
-    margin-left: 10px;
-}
-
-.audio-btn:hover {
-    transform: scale(1.1);
 }
