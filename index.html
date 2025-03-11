@@ -8,6 +8,13 @@
     <link rel="icon" href="data:,">
 </head>
 <body>
+    <!-- 🔹 Navigation Bar -->
+    <nav class="navbar">
+        <button onclick="showPage('homePage')">Learn Tamil</button>
+        <button onclick="showPage('quizPage')">Take Quiz</button>
+    </nav>
+
+    <!-- 🔹 Learn Tamil Page -->
     <div id="homePage">
         <h1>Learn Tamil</h1>
         <hr class="section-divider"> <!-- 🔹 Line below title -->
@@ -27,17 +34,19 @@
         <button onclick="window.location.href='words.html?category=fruits'">Fruits</button>
         <button onclick="window.location.href='words.html?category=vegetables'">Vegetables</button>
         <button onclick="window.location.href='words.html?category=tastes'">Tastes</button>
-       
     </div>
+
+    <!-- 🔹 Quiz Page (Fixed Closing Tag) -->
     <div id="quizPage" style="display: none;">
         <h1>Take Quiz</h1>
         <p>Start your quiz here...</p>
         <button onclick="window.location.href='quiz.html'">Start Quiz</button>
-    </div
+    </div> <!-- ✅ Closing tag was missing before -->
 
+    <!-- 🔹 Lesson Page -->
     <div id="lessonPage" style="display: none;">
         <div class="card">
-            <button onclick="goHome()">Home</button>
+            <button onclick="showPage('homePage')">Home</button>
             <h2 id="lessonTitle"></h2>
 
             <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
