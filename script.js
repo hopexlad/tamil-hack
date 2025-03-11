@@ -14,27 +14,21 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentLesson = 0;
     let currentLessons = [];
 
-    // ✅ Navigation Buttons Sliding Effect
-    const pages = ["homePage", "quizPage"];
-    const indicator = document.querySelector(".indicator");
+   // ✅ Function to show the selected page
+function showPage(pageId) {
+    document.getElementById("homePage").style.display = "none";
+    document.getElementById("quizPage").style.display = "none";
+    document.getElementById(pageId).style.display = "block";
+}
 
-    function showPage(pageId) {
-        pages.forEach(id => {
-            document.getElementById(id).style.display = (id === pageId) ? "block" : "none";
-        });
-
-        if (pageId === "homePage") {
-            indicator.style.transform = "translateX(0)";
-        } else if (pageId === "quizPage") {
-            indicator.style.transform = "translateX(100%)";
-        }
-    }
-
-    // ✅ Default Page
+// ✅ Set default page to "Learn Tamil"
+document.addEventListener("DOMContentLoaded", function () {
     showPage("homePage");
+});
 
-    // ✅ Ensure function is globally accessible
-    window.showPage = showPage;
+// ✅ Make function globally accessible
+window.showPage = showPage;
+
 
     // ✅ Lessons Navigation
     function goToLessons(type) {
