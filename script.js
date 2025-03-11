@@ -50,8 +50,9 @@ window.showPage = showPage;
     }
 
     function goHome() {
-        showPage("homePage");
-    }
+    showPage("homePage");
+    document.getElementById("lessonPage").style.display = "none"; // ✅ Hide lessonPage explicitly
+}
 
     function updateLesson() {
         document.getElementById("tamilCharacter").textContent = currentLessons[currentLesson].tamil;
