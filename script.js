@@ -14,9 +14,11 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentLesson = 0;
     let currentLessons = [];
 
-  function showPage(pageId) {
+ function showPage(pageId) {
     document.getElementById("homePage").style.display = "none";
     document.getElementById("quizPage").style.display = "none";
+    document.getElementById("lessonPage").style.display = "none"; // ✅ Hide lessonPage too!
+
     document.getElementById(pageId).style.display = "block";
 
     // ✅ Update Active Link
@@ -28,13 +30,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 }
 
-// ✅ Set default page to "Learn Tamil"
-document.addEventListener("DOMContentLoaded", function () {
-    showPage("homePage");
-});
-
-// ✅ Make function globally accessible
+// ✅ Ensure function is globally accessible
 window.showPage = showPage;
+
 
 
 
