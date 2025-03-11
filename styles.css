@@ -99,6 +99,26 @@ canvas {
     font-size: 18px;
     font-weight: 600;
 }
+.navbar {
+    display: flex;
+    justify-content: center;
+    background: #4a90e2;
+    padding: 10px;
+}
+
+.navbar button {
+    background: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.navbar button:hover {
+    background: #e0e0e0;
+}
 
 #backBtn, #nextBtn {
     background: var(--secondary-color);
