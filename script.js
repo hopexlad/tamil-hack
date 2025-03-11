@@ -14,11 +14,18 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentLesson = 0;
     let currentLessons = [];
 
-   // ✅ Function to show the selected page
-function showPage(pageId) {
+   function showPage(pageId) {
     document.getElementById("homePage").style.display = "none";
     document.getElementById("quizPage").style.display = "none";
     document.getElementById(pageId).style.display = "block";
+
+    // ✅ Update Active Link
+    document.querySelectorAll(".nav-link").forEach(link => link.classList.remove("active"));
+    if (pageId === "homePage") {
+        document.querySelector(".nav-link:nth-child(1)").classList.add("active");
+    } else if (pageId === "quizPage") {
+        document.querySelector(".nav-link:nth-child(2)").classList.add("active");
+    }
 }
 
 // ✅ Set default page to "Learn Tamil"
@@ -28,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // ✅ Make function globally accessible
 window.showPage = showPage;
+
 
 
     // ✅ Lessons Navigation
