@@ -16,22 +16,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ✅ Function to switch pages properly
     function showPage(pageId) {
-        document.getElementById("homePage").style.display = "none";
-        document.getElementById("quizPage").style.display = "none";
-        document.getElementById("lessonPage").style.display = "none"; // ✅ Added lessonPage hiding
-
-        document.getElementById(pageId).style.display = "block";
+        const pages = ["homePage", "quizPage", "lessonPage"];
+        pages.forEach(id => {
+            document.getElementById(id).style.display = (id === pageId) ? "block" : "none";
+        });
     }
 
-    // ✅ Ensure "Learn Tamil" is the default page on load
+    // ✅ Default: Show "Learn Tamil" Page
     showPage("homePage");
 
     // ✅ Lessons Navigation
     function goToLessons(type) {
-        currentLessons = type === "uyir" ? uyirLessons : maeiLessons;
-        document.getElementById("lessonTitle").textContent =
-            type === "uyir" ? "UYIR YELUTHUKKAL" : "MAEI YELUTHUKKAL";
-        showPage("lessonPage"); // ✅ Use showPage instead of manual display settings
+        currentLessons = (type === "uyir") ? uyirLessons : maeiLessons;
+        document.getElementById("lessonTitle").textContent = 
+            (type === "uyir") ? "UYIR YELUTHUKKAL" : "MAEI YELUTHUKKAL";
+        showPage("lessonPage");
         if (canvas) canvas.style.display = "block";
         currentLesson = 0;
         updateLesson();
@@ -45,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("tamilCharacter").textContent = currentLessons[currentLesson].tamil;
         document.getElementById("transliteration").textContent = currentLessons[currentLesson].transliteration;
         document.getElementById("audioPlayer").src = currentLessons[currentLesson].audio;
-        document.getElementById("progressBar").style.width =
+        document.getElementById("progressBar").style.width = 
             ((currentLesson + 1) / currentLessons.length) * 100 + "%";
 
         document.getElementById("progressText").textContent = `${currentLesson + 1}/${currentLessons.length}`;
@@ -70,13 +69,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // ✅ Fix: Prevent Canvas Errors on Pages Without Canvas
+    // ✅ Fix: Prevent Canvas Errors if Canvas is Missing
     const canvas = document.getElementById("writingCanvas");
     if (canvas) {
         const ctx = canvas.getContext("2d");
 
         function setCanvasSize() {
-            canvas.width = canvas.clientWidth || 300; 
+            canvas.width = canvas.clientWidth || 300;
             canvas.height = canvas.clientHeight || 300;
         }
         setCanvasSize();
@@ -135,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return { x, y };
         }
 
-        // ✅ Attach event listeners safely (only if canvas exists)
+        // ✅ Attach event listeners safely
         canvas.addEventListener("mousedown", startDrawing);
         canvas.addEventListener("mousemove", draw);
         canvas.addEventListener("mouseup", stopDrawing);
@@ -147,6 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ✅ Ensure functions are globally accessible
+    window.showPage = showPage;
     window.goToLessons = goToLessons;
     window.goHome = goHome;
     window.playAudio = playAudio;
