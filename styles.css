@@ -102,12 +102,12 @@ canvas {
 .navbar {
     display: flex;
     justify-content: center;
-    background: #4a90e2;
+    background:  var(--background-color);
     padding: 10px;
 }
 
 .navbar button {
-    background: white;
+    background: var(--primary-color);ol
     border: none;
     padding: 10px 15px;
     margin: 5px;
