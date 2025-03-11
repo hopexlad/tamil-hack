@@ -34,6 +34,16 @@ document.addEventListener("DOMContentLoaded", function () {
     let isDrawing = false;
     let lastX = 0;
     let lastY = 0;
+function showPage(pageId) {
+    document.getElementById("homePage").style.display = "none";
+    document.getElementById("quizPage").style.display = "none";
+    document.getElementById(pageId).style.display = "block";
+}
+
+// Default to show "Learn Tamil" page
+document.addEventListener("DOMContentLoaded", function () {
+    showPage("homePage");
+});
 
     function goToLessons(type) {
         currentLessons = type === "uyir" ? uyirLessons : maeiLessons;
