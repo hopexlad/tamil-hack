@@ -41,21 +41,22 @@ document.addEventListener("DOMContentLoaded", function () {
     showPage("homePage");
 });
 
-    // ✅ Lessons Navigation
-    function goToLessons(type) {
-        currentLessons = (type === "uyir") ? uyirLessons : maeiLessons;
-        document.getElementById("lessonTitle").textContent =
-            (type === "uyir") ? "UYIR YELUTHUKKAL" : "MAEI YELUTHUKKAL";
-        showPage("lessonPage");
-        if (canvas) canvas.style.display = "block";
-        currentLesson = 0;
-        updateLesson();
-    }
+   function goToLessons(type) {
+    currentLessons = type === "uyir" ? uyirLessons : maeiLessons;
+    document.getElementById("lessonTitle").textContent =
+        type === "uyir" ? "UYIR YELUTHUKKAL" : "MAEI YELUTHUKKAL";
 
-    function goHome() {
-    showPage("homePage");
-    document.getElementById("lessonPage").style.display = "none"; // ✅ Hide lessonPage explicitly
+    showPage("lessonPage");
+
+    currentLesson = 0;
+    updateLesson();
 }
+
+
+   function goHome() {
+    showPage("homePage");
+}
+
 
     function updateLesson() {
         document.getElementById("tamilCharacter").textContent = currentLessons[currentLesson].tamil;
