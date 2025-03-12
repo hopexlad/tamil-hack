@@ -41,16 +41,18 @@ document.addEventListener("DOMContentLoaded", function () {
     showPage("homePage");
 });
 
-   function goToLessons(type) {
+  function goToLessons(type) {
     currentLessons = type === "uyir" ? uyirLessons : maeiLessons;
     document.getElementById("lessonTitle").textContent =
-        type === "uyir" ? "UYIR YELUTHUKKAL" : "MAEI YELUTHUKKAL";
+        type === "uyir" ? "UYIR YELUTHUKKAL" : "MEI YELUTHUKKAL";
 
-    showPage("lessonPage");
-
+    showPage("lessonPage"); // ✅ Switch to Lesson Page
     currentLesson = 0;
     updateLesson();
 }
+
+// ✅ Ensure function is globally accessible
+window.goToLessons = goToLessons;
 
 
    function goHome() {
