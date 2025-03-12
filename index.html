@@ -9,9 +9,10 @@
 </head>
 <body>
     
+   <!-- 🔹 Navigation Menu -->
 <nav class="navbar">
-    <a href="#" class="nav-link active" data-page="homePage" onclick="showPage('homePage')">Learn Tamil</a>
-    <a href="#" class="nav-link" data-page="quizPage" onclick="showPage('quizPage')">Take Quiz</a>
+    <a href="#" onclick="showPage('homePage')" class="nav-link active">Learn Tamil</a>
+    <a href="#" onclick="showPage('quizPage')" class="nav-link">Take Quiz</a>
 </nav>
 
 
@@ -36,7 +37,6 @@
         <button onclick="window.location.href='words.html?category=vegetables'">Vegetables</button>
         <button onclick="window.location.href='words.html?category=tastes'">Tastes</button>
     </div>
-   
 
     <!-- 🔹 Quiz Page (Fixed Closing Tag) -->
     <div id="quizPage" style="display: none;">
