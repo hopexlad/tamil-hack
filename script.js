@@ -15,31 +15,24 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentLessons = [];
 
 function showPage(pageId) {
-    const pages = ["homePage", "quizPage", "lessonPage"];
-    
-    pages.forEach(id => {
-        const page = document.getElementById(id);
-        if (page) {
-            page.style.display = id === pageId ? "block" : "none";
-        }
-    });
+    // ✅ Hide all pages
+    document.querySelectorAll(".page").forEach(page => page.style.display = "none");
 
-    // ✅ Update Active Link Styling
+    // ✅ Show the requested page
+    document.getElementById(pageId).style.display = "block";
+
+    // ✅ Update Active Navigation Links
     document.querySelectorAll(".nav-link").forEach(link => link.classList.remove("active"));
-    if (pageId === "homePage") {
-        document.querySelector(".nav-link:nth-child(1)").classList.add("active");
-    } else if (pageId === "quizPage") {
-        document.querySelector(".nav-link:nth-child(2)").classList.add("active");
-    }
+    document.querySelector(`.nav-link[data-page="${pageId}"]`)?.classList.add("active");
 }
+
+// ✅ Set Default Page on Load
+document.addEventListener("DOMContentLoaded", function () {
+    showPage("homePage"); 
+});
 
 // ✅ Ensure function is globally accessible
 window.showPage = showPage;
-
-// ✅ Default page on load
-document.addEventListener("DOMContentLoaded", function () {
-    showPage("homePage");
-});
 
   function goToLessons(type) {
     currentLessons = type === "uyir" ? uyirLessons : maeiLessons;
