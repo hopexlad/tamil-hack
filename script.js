@@ -14,14 +14,17 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentLesson = 0;
     let currentLessons = [];
 
- function showPage(pageId) {
-    document.getElementById("homePage").style.display = "none";
-    document.getElementById("quizPage").style.display = "none";
-    document.getElementById("lessonPage").style.display = "none"; // ✅ Hide lessonPage too!
+function showPage(pageId) {
+    const pages = ["homePage", "quizPage", "lessonPage"];
+    
+    pages.forEach(id => {
+        const page = document.getElementById(id);
+        if (page) {
+            page.style.display = id === pageId ? "block" : "none";
+        }
+    });
 
-    document.getElementById(pageId).style.display = "block";
-
-    // ✅ Update Active Link
+    // ✅ Update Active Link Styling
     document.querySelectorAll(".nav-link").forEach(link => link.classList.remove("active"));
     if (pageId === "homePage") {
         document.querySelector(".nav-link:nth-child(1)").classList.add("active");
@@ -33,8 +36,10 @@ document.addEventListener("DOMContentLoaded", function () {
 // ✅ Ensure function is globally accessible
 window.showPage = showPage;
 
-
-
+// ✅ Default page on load
+document.addEventListener("DOMContentLoaded", function () {
+    showPage("homePage");
+});
 
     // ✅ Lessons Navigation
     function goToLessons(type) {
