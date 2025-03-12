@@ -15,23 +15,24 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentLessons = [];
 
     function showPage(pageId) {
-        document.getElementById("homePage").style.display = "none";
-        document.getElementById("quizPage").style.display = "none";
-        document.getElementById("lessonPage").style.display = "none";
-        document.getElementById("sentenceGamePage").style.display = "none"; // ✅ Hides sentence builder page
+    document.getElementById("homePage").style.display = "none";
+    document.getElementById("quizPage").style.display = "none";
+    document.getElementById("lessonPage").style.display = "none";
+    document.getElementById("sentenceGamePage").style.display = "none"; // ✅ Hide sentence game too!
 
-        document.getElementById(pageId).style.display = "block";
+    document.getElementById(pageId).style.display = "block";
 
-        document.querySelectorAll(".nav-link").forEach(link => link.classList.remove("active"));
-        if (pageId === "homePage") {
-            document.querySelector(".nav-link:nth-child(1)").classList.add("active");
-        } else if (pageId === "quizPage") {
-            document.querySelector(".nav-link:nth-child(2)").classList.add("active");
-        } else if (pageId === "sentenceGamePage") {
-            document.querySelector(".nav-link:nth-child(3)").classList.add("active");
-            loadSentenceGame(); // ✅ Loads sentence game only when switching to this page
-        }
+    document.querySelectorAll(".nav-link").forEach(link => link.classList.remove("active"));
+    if (pageId === "homePage") {
+        document.querySelector(".nav-link:nth-child(1)").classList.add("active");
+    } else if (pageId === "quizPage") {
+        document.querySelector(".nav-link:nth-child(2)").classList.add("active");
+    } else if (pageId === "sentenceGamePage") {
+        document.querySelector(".nav-link:nth-child(3)").classList.add("active");
+        loadSentenceGame(); // ✅ Load game only when needed
     }
+}
+
 
     window.showPage = showPage;
 
