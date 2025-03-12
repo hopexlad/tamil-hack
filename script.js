@@ -14,29 +14,27 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentLesson = 0;
     let currentLessons = [];
 
- function showPage(pageId) {
-    document.getElementById("homePage").style.display = "none";
-    document.getElementById("quizPage").style.display = "none";
-    document.getElementById("lessonPage").style.display = "none"; // ✅ Hide lessonPage too!
+    function showPage(pageId) {
+        document.getElementById("homePage").style.display = "none";
+        document.getElementById("quizPage").style.display = "none";
+        document.getElementById("lessonPage").style.display = "none";
+        document.getElementById("sentenceGamePage").style.display = "none"; // ✅ Hides sentence builder page
 
-    document.getElementById(pageId).style.display = "block";
+        document.getElementById(pageId).style.display = "block";
 
-    // ✅ Update Active Link
-    document.querySelectorAll(".nav-link").forEach(link => link.classList.remove("active"));
-    if (pageId === "homePage") {
-        document.querySelector(".nav-link:nth-child(1)").classList.add("active");
-    } else if (pageId === "quizPage") {
-        document.querySelector(".nav-link:nth-child(2)").classList.add("active");
+        document.querySelectorAll(".nav-link").forEach(link => link.classList.remove("active"));
+        if (pageId === "homePage") {
+            document.querySelector(".nav-link:nth-child(1)").classList.add("active");
+        } else if (pageId === "quizPage") {
+            document.querySelector(".nav-link:nth-child(2)").classList.add("active");
+        } else if (pageId === "sentenceGamePage") {
+            document.querySelector(".nav-link:nth-child(3)").classList.add("active");
+            loadSentenceGame(); // ✅ Loads sentence game only when switching to this page
+        }
     }
-}
 
-// ✅ Ensure function is globally accessible
-window.showPage = showPage;
+    window.showPage = showPage;
 
-
-
-
-    // ✅ Lessons Navigation
     function goToLessons(type) {
         currentLessons = (type === "uyir") ? uyirLessons : maeiLessons;
         document.getElementById("lessonTitle").textContent =
@@ -48,9 +46,8 @@ window.showPage = showPage;
     }
 
     function goHome() {
-    showPage("homePage");
-    document.getElementById("lessonPage").style.display = "none"; // ✅ Hide lessonPage explicitly
-}
+        showPage("homePage");
+    }
 
     function updateLesson() {
         document.getElementById("tamilCharacter").textContent = currentLessons[currentLesson].tamil;
@@ -81,7 +78,6 @@ window.showPage = showPage;
         }
     }
 
-    // ✅ Fix: Prevent Canvas Errors if Canvas is Missing
     const canvas = document.getElementById("writingCanvas");
     if (canvas) {
         const ctx = canvas.getContext("2d");
@@ -146,7 +142,6 @@ window.showPage = showPage;
             return { x, y };
         }
 
-        // ✅ Attach event listeners safely
         canvas.addEventListener("mousedown", startDrawing);
         canvas.addEventListener("mousemove", draw);
         canvas.addEventListener("mouseup", stopDrawing);
@@ -157,11 +152,70 @@ window.showPage = showPage;
         canvas.addEventListener("touchend", stopDrawing);
     }
 
-    // ✅ Ensure functions are globally accessible
     window.goToLessons = goToLessons;
     window.goHome = goHome;
     window.playAudio = playAudio;
     window.nextLesson = nextLesson;
     window.prevLesson = prevLesson;
     if (canvas) window.clearCanvas = clearCanvas;
+
+    // ✅ Sentence Builder Game Integration
+    const sentences = [
+        { words: ["நான்", "புத்தகம்", "வாசிக்கிறேன்"], correct: "நான் புத்தகம் வாசிக்கிறேன்" },
+        { words: ["அவன்", "வேகமாக", "ஓடினான்"], correct: "அவன் வேகமாக ஓடினான்" },
+        { words: ["இது", "என்", "கணினி"], correct: "இது என் கணினி" }
+    ];
+
+    let currentSentenceIndex = 0;
+    function loadSentenceGame() {
+        const sentenceContainer = document.getElementById("sentenceContainer");
+        const wordBank = document.getElementById("wordBank");
+        const resultMessage = document.getElementById("resultMessage");
+
+        sentenceContainer.innerHTML = "";
+        wordBank.innerHTML = "";
+        resultMessage.innerText = "";
+
+        let words = [...sentences[currentSentenceIndex].words];
+        words = words.sort(() => Math.random() - 0.5);
+
+        words.forEach(word => {
+            const wordElement = document.createElement("div");
+            wordElement.classList.add("word");
+            wordElement.innerText = word;
+            wordElement.draggable = true;
+            wordElement.addEventListener("dragstart", dragStart);
+            wordBank.appendChild(wordElement);
+        });
+
+        sentenceContainer.addEventListener("dragover", dragOver);
+        sentenceContainer.addEventListener("drop", drop);
+    }
+
+    function dragStart(event) {
+        event.dataTransfer.setData("text", event.target.innerText);
+    }
+
+    function dragOver(event) {
+        event.preventDefault();
+    }
+
+    function drop(event) {
+        event.preventDefault();
+        const wordText = event.dataTransfer.getData("text");
+        const draggedWord = document.createElement("div");
+        draggedWord.classList.add("word");
+        draggedWord.innerText = wordText;
+        draggedWord.draggable = true;
+        draggedWord.addEventListener("dragstart", dragStart);
+        document.getElementById("sentenceContainer").appendChild(draggedWord);
+
+        Array.from(document.getElementById("wordBank").children).forEach(word => {
+            if (word.innerText === wordText) {
+                word.remove();
+            }
+        });
+    }
+
+    window.loadSentenceGame = loadSentenceGame;
 });
