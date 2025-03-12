@@ -14,44 +14,43 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentLesson = 0;
     let currentLessons = [];
 
-function showPage(pageId) {
-    // ✅ Hide all pages
-    document.querySelectorAll(".page").forEach(page => page.style.display = "none");
+ function showPage(pageId) {
+    document.getElementById("homePage").style.display = "none";
+    document.getElementById("quizPage").style.display = "none";
+    document.getElementById("lessonPage").style.display = "none"; // ✅ Hide lessonPage too!
 
-    // ✅ Show the requested page
     document.getElementById(pageId).style.display = "block";
 
-    // ✅ Update Active Navigation Links
+    // ✅ Update Active Link
     document.querySelectorAll(".nav-link").forEach(link => link.classList.remove("active"));
-    document.querySelector(`.nav-link[data-page="${pageId}"]`)?.classList.add("active");
+    if (pageId === "homePage") {
+        document.querySelector(".nav-link:nth-child(1)").classList.add("active");
+    } else if (pageId === "quizPage") {
+        document.querySelector(".nav-link:nth-child(2)").classList.add("active");
+    }
 }
-
-// ✅ Set Default Page on Load
-document.addEventListener("DOMContentLoaded", function () {
-    showPage("homePage"); 
-});
 
 // ✅ Ensure function is globally accessible
 window.showPage = showPage;
 
-  function goToLessons(type) {
-    currentLessons = type === "uyir" ? uyirLessons : maeiLessons;
-    document.getElementById("lessonTitle").textContent =
-        type === "uyir" ? "UYIR YELUTHUKKAL" : "MEI YELUTHUKKAL";
-
-    showPage("lessonPage"); // ✅ Switch to Lesson Page
-    currentLesson = 0;
-    updateLesson();
-}
-
-// ✅ Ensure function is globally accessible
-window.goToLessons = goToLessons;
 
 
-   function goHome() {
+
+    // ✅ Lessons Navigation
+    function goToLessons(type) {
+        currentLessons = (type === "uyir") ? uyirLessons : maeiLessons;
+        document.getElementById("lessonTitle").textContent =
+            (type === "uyir") ? "UYIR YELUTHUKKAL" : "MAEI YELUTHUKKAL";
+        showPage("lessonPage");
+        if (canvas) canvas.style.display = "block";
+        currentLesson = 0;
+        updateLesson();
+    }
+
+    function goHome() {
     showPage("homePage");
+    document.getElementById("lessonPage").style.display = "none"; // ✅ Hide lessonPage explicitly
 }
-
 
     function updateLesson() {
         document.getElementById("tamilCharacter").textContent = currentLessons[currentLesson].tamil;
