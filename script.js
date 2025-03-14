@@ -14,60 +14,51 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentLesson = 0;
     let currentLessons = [];
 
-function showPage(pageId) {
-    // Hide all pages except lessonPage
-    document.getElementById("homePage").style.display = "none";
-    document.getElementById("quizPage").style.display = "none";
-
-    // ✅ Only hide lessonPage if switching to home or quiz
-    if (pageId !== "lessonPage") {
+    function showPage(pageId) {
+        // Hide all pages
+        document.getElementById("homePage").style.display = "none";
+        document.getElementById("quizPage").style.display = "none";
         document.getElementById("lessonPage").style.display = "none";
+
+        // Show requested page
+        document.getElementById(pageId).style.display = "block";
+
+        // ✅ Update Active Link
+        document.querySelectorAll(".nav-link").forEach(link => link.classList.remove("active"));
+        if (pageId === "homePage") {
+            document.querySelector(".nav-link:nth-child(1)").classList.add("active");
+        } else if (pageId === "quizPage") {
+            document.querySelector(".nav-link:nth-child(2)").classList.add("active");
+        }
     }
 
-    document.getElementById(pageId).style.display = "block";
+    // ✅ Ensure function is globally accessible
+    window.showPage = showPage;
 
-    // ✅ Update Active Link
-    document.querySelectorAll(".nav-link").forEach(link => link.classList.remove("active"));
-    if (pageId === "homePage") {
-        document.querySelector(".nav-link:nth-child(1)").classList.add("active");
-    } else if (pageId === "quizPage") {
-        document.querySelector(".nav-link:nth-child(2)").classList.add("active");
+    function goToLessons(type) {
+        currentLessons = (type === "uyir") ? uyirLessons : maeiLessons;
+        document.getElementById("lessonTitle").textContent =
+            (type === "uyir") ? "UYIR YELUTHUKKAL" : "MAEI YELUTHUKKAL";
+
+        // ✅ Switch to lesson page
+        showPage("lessonPage");
+
+        currentLesson = 0;
+        updateLesson();
     }
-}
-
-// ✅ Ensure function is globally accessible
-window.showPage = showPage;
-
-
-
-
-
-  function goToLessons(type) {
-    currentLessons = (type === "uyir") ? uyirLessons : maeiLessons;
-    document.getElementById("lessonTitle").textContent =
-        (type === "uyir") ? "UYIR YELUTHUKKAL" : "MAEI YELUTHUKKAL";
-    
-    document.getElementById("homePage").style.display = "none";
-    document.getElementById("lessonPage").style.display = "block"; // ✅ Make sure lessonPage is visible
-
-    currentLesson = 0;
-    updateLesson();
-}
-
 
     function goHome() {
-    showPage("homePage");
-    document.getElementById("lessonPage").style.display = "none"; // ✅ Hide lessonPage explicitly
-}
+        showPage("homePage");
+    }
 
     function updateLesson() {
         document.getElementById("tamilCharacter").textContent = currentLessons[currentLesson].tamil;
         document.getElementById("transliteration").textContent = currentLessons[currentLesson].transliteration;
         document.getElementById("audioPlayer").src = currentLessons[currentLesson].audio;
         document.getElementById("progressBar").style.width =
-            ((currentLesson + 1) / currentLessons.length) * 100 + "%";
+            `${((currentLesson + 1) / currentLessons.length) * 100}%`;
 
-        document.getElementById("progressText").textContent = ${currentLesson + 1}/${currentLessons.length};
+        document.getElementById("progressText").textContent = `${currentLesson + 1}/${currentLessons.length}`;
         clearCanvas();
     }
 
