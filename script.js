@@ -36,16 +36,13 @@ window.showPage = showPage;
 
 
 
-    // ✅ Lessons Navigation
     function goToLessons(type) {
-        currentLessons = (type === "uyir") ? uyirLessons : maeiLessons;
-        document.getElementById("lessonTitle").textContent =
-            (type === "uyir") ? "UYIR YELUTHUKKAL" : "MAEI YELUTHUKKAL";
-        showPage("lessonPage");
-        if (canvas) canvas.style.display = "block";
-        currentLesson = 0;
-        updateLesson();
-    }
+    currentLessons = (type === "uyir") ? uyirLessons : maeiLessons;
+    document.getElementById("lessonTitle").textContent =
+        (type === "uyir") ? "UYIR YELUTHUKKAL" : "MAEI YELUTHUKKAL";
+    showPage("lessonPage");  // ✅ Show lesson page correctly
+    updateLesson();
+}
 
     function goHome() {
     showPage("homePage");
