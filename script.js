@@ -3,17 +3,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const background = document.querySelector(".floating-background");
 
     function createLetter() {
+        if (!background) return; // Prevent errors if the background is missing
+
         const letter = document.createElement("div");
         letter.classList.add("tamil-letter");
         letter.innerText = tamilLetters[Math.floor(Math.random() * tamilLetters.length)];
-        
+
         // Random position
         letter.style.left = Math.random() * 100 + "vw";
         letter.style.animationDuration = Math.random() * 5 + 5 + "s"; // Random speed
 
         // 🔥 Randomized Font Size (Some Big, Some Small)
-        const randomSize = Math.random() * 4 + 1; // Between 1rem and 5rem
-        letter.style.fontSize = `${randomSize}rem`;
+        letter.style.fontSize = `${Math.random() * 4 + 1}rem`; 
 
         background.appendChild(letter);
 
@@ -22,8 +23,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     setInterval(createLetter, 500); // Generate letters continuously
-});
-document.addEventListener("DOMContentLoaded", function () {
+
+    // ✅ LESSONS FUNCTIONALITY
     const uyirLessons = [
         { tamil: "அ", transliteration: "a", audio: "audio/a.mp3" },
         { tamil: "ஆ", transliteration: "aa", audio: "audio/aa.mp3" },
@@ -40,15 +41,12 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentLessons = [];
 
     function showPage(pageId) {
-        // Hide all pages
         document.getElementById("homePage").style.display = "none";
         document.getElementById("quizPage").style.display = "none";
         document.getElementById("lessonPage").style.display = "none";
 
-        // Show requested page
         document.getElementById(pageId).style.display = "block";
 
-        // ✅ Update Active Link
         document.querySelectorAll(".nav-link").forEach(link => link.classList.remove("active"));
         if (pageId === "homePage") {
             document.querySelector(".nav-link:nth-child(1)").classList.add("active");
@@ -57,7 +55,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // ✅ Ensure function is globally accessible
     window.showPage = showPage;
 
     function goToLessons(type) {
@@ -65,9 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("lessonTitle").textContent =
             (type === "uyir") ? "UYIR YELUTHUKKAL" : "MAEI YELUTHUKKAL";
 
-        // ✅ Switch to lesson page
         showPage("lessonPage");
-
         currentLesson = 0;
         updateLesson();
     }
@@ -105,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // ✅ Fix: Prevent Canvas Errors if Canvas is Missing
+    // ✅ FIX CANVAS ISSUES
     const canvas = document.getElementById("writingCanvas");
     if (canvas) {
         const ctx = canvas.getContext("2d");
@@ -170,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return { x, y };
         }
 
-        // ✅ Attach event listeners safely
+        // ✅ ATTACH EVENT LISTENERS SAFELY
         canvas.addEventListener("mousedown", startDrawing);
         canvas.addEventListener("mousemove", draw);
         canvas.addEventListener("mouseup", stopDrawing);
