@@ -14,10 +14,15 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentLesson = 0;
     let currentLessons = [];
 
- function showPage(pageId) {
+function showPage(pageId) {
+    // Hide all pages except lessonPage
     document.getElementById("homePage").style.display = "none";
     document.getElementById("quizPage").style.display = "none";
-    document.getElementById("lessonPage").style.display = "none"; // ✅ Hide lessonPage too!
+
+    // ✅ Only hide lessonPage if switching to home or quiz
+    if (pageId !== "lessonPage") {
+        document.getElementById("lessonPage").style.display = "none";
+    }
 
     document.getElementById(pageId).style.display = "block";
 
@@ -36,13 +41,19 @@ window.showPage = showPage;
 
 
 
-    function goToLessons(type) {
+
+  function goToLessons(type) {
     currentLessons = (type === "uyir") ? uyirLessons : maeiLessons;
     document.getElementById("lessonTitle").textContent =
         (type === "uyir") ? "UYIR YELUTHUKKAL" : "MAEI YELUTHUKKAL";
-    showPage("lessonPage");  // ✅ Show lesson page correctly
+    
+    document.getElementById("homePage").style.display = "none";
+    document.getElementById("lessonPage").style.display = "block"; // ✅ Make sure lessonPage is visible
+
+    currentLesson = 0;
     updateLesson();
 }
+
 
     function goHome() {
     showPage("homePage");
