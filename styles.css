@@ -17,6 +17,9 @@ body {
     margin: 0;
     padding: 0;
     color: var(--text-color);
+     /* ✅ Add Background Image */
+    background: url("bg.png") no-repeat center center fixed;
+    background-size: cover; /* Ensures it covers the entire screen */
 }
 
 h1, h2 {
