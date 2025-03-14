@@ -9,7 +9,75 @@
 </head>
 <body>
 
+<!-- 🔹 Navigation Menu --><!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamil Tutor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:,">
+</head>
+<body>
+
 <!-- 🔹 Navigation Menu -->
+<nav class="navbar">
+    <a href="#" onclick="showPage('homePage')" class="nav-link active">Learn Tamil</a>
+    <a href="#" onclick="showPage('quizPage')" class="nav-link">Take Quiz</a>
+</nav>
+
+<!-- 🔹 Learn Tamil Page -->
+<div id="homePage">
+    <h2>Letters</h2>
+    <button onclick="goToLessons('uyir')">UYIR YELUTHUKKAL</button>
+    <button onclick="goToLessons('maei')">MEI YELUTHUKKAL</button>
+    <hr class="section-divider">
+
+    <h2>Basics</h2>
+    <button onclick="window.location.href='words.html?category=simple'">Simple Words</button>
+    <button onclick="window.location.href='words.html?category=greetings'">Greetings</button>
+    <button onclick="window.location.href='words.html?category=numbers'">Numbers</button>
+    <button onclick="window.location.href='words.html?category=animals'">Animals</button>
+    <button onclick="window.location.href='words.html?category=birds'">Birds</button>
+    <button onclick="window.location.href='words.html?category=colours'">Colours</button>
+    <button onclick="window.location.href='words.html?category=fruits'">Fruits</button>
+    <button onclick="window.location.href='words.html?category=vegetables'">Vegetables</button>
+    <button onclick="window.location.href='words.html?category=tastes'">Tastes</button>
+</div>
+
+<!-- 🔹 Quiz Page -->
+<div id="quizPage" style="display: none;">
+    <h1>Take Quiz</h1>
+    <button onclick="window.location.href='quiz.html'">Start Quiz</button>
+    <button onclick="window.location.href='sentence_game.html'">Sentence Game</button>
+    <button onclick="showPage('homePage')">Home</button>
+</div>
+
+<!-- 🔹 Lesson Page -->
+<div id="lessonPage" style="display: none;">
+    <div class="card">
+        <button onclick="goHome()">Home</button>
+        <h2 id="lessonTitle"></h2>
+        <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+        <h2 id="tamilCharacter"></h2>
+        <p id="transliteration"></p>
+        <button onclick="playAudio()">Pronounce</button>
+        <canvas id="writingCanvas" width="300" height="300"></canvas>
+        <button onclick="clearCanvas()">Clear</button>
+
+        <div class="navigation">
+            <button id="backBtn" onclick="prevLesson()">Back</button>
+            <span id="progressText">1/3</span>
+            <button id="nextBtn" onclick="nextLesson()">Next</button>
+        </div>
+    </div>
+    <audio id="audioPlayer"></audio>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
+
 <nav class="navbar">
     <a href="#" onclick="showPage('homePage')" class="nav-link active">Learn Tamil</a>
     <a href="#" onclick="showPage('quizPage')" class="nav-link">Take Quiz</a>
