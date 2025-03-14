@@ -1,4 +1,29 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const tamilLetters = ["அ", "ஆ", "இ", "உ", "எ", "ஏ", "ஒ", "ஓ", "ஃ", "க", "ச", "ட", "த", "ப", "ம", "ய", "ர", "ல"];
+    const background = document.querySelector(".floating-background");
+
+    function createLetter() {
+        const letter = document.createElement("div");
+        letter.classList.add("tamil-letter");
+        letter.innerText = tamilLetters[Math.floor(Math.random() * tamilLetters.length)];
+        
+        // Random position
+        letter.style.left = Math.random() * 100 + "vw";
+        letter.style.animationDuration = Math.random() * 5 + 5 + "s"; // Random speed
+
+        // 🔥 Randomized Font Size (Some Big, Some Small)
+        const randomSize = Math.random() * 4 + 1; // Between 1rem and 5rem
+        letter.style.fontSize = `${randomSize}rem`;
+
+        background.appendChild(letter);
+
+        // Remove letter after animation
+        setTimeout(() => letter.remove(), 6000);
+    }
+
+    setInterval(createLetter, 500); // Generate letters continuously
+});
+document.addEventListener("DOMContentLoaded", function () {
     const uyirLessons = [
         { tamil: "அ", transliteration: "a", audio: "audio/a.mp3" },
         { tamil: "ஆ", transliteration: "aa", audio: "audio/aa.mp3" },
