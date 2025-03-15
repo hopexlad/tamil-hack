@@ -44,7 +44,7 @@ button:hover {
     background: #3a7bc1;
     transform: translateY(-2px);
 }
-/* Background Container */
+/* 🔹 Background with Floating Tamil Letters */
 .floating-background {
     position: fixed;
     width: 100%;
@@ -53,19 +53,19 @@ button:hover {
     left: 0;
     overflow: hidden;
     z-index: -1;
-    background-color: #F7F8FC; /* Soft Background */
+    background: #F7F8FC; /* Soft Background */
 }
 
-/* Floating Tamil Letters */
+/* 🔹 Floating Tamil Letters */
 .tamil-letter {
     position: absolute;
     font-weight: bold;
-    color: rgba(44, 62, 80, 0.2); /* Faded effect */
+    color: rgba(44, 62, 80, 0.3); /* Faded effect */
     animation: floatAnimation linear infinite;
     opacity: 0.8;
 }
 
-/* Floating Animation */
+/* 🔹 Floating Animation - Slower Movement */
 @keyframes floatAnimation {
     from {
         transform: translateY(100vh) rotate(0deg);
@@ -76,6 +76,46 @@ button:hover {
         opacity: 1;
     }
 }
+
+/* 🔹 Blurred Bubbles */
+.blur-bubble {
+    position: absolute;
+    background: rgba(44, 62, 80, 0.15);
+    border-radius: 50%;
+    opacity: 0.4;
+    filter: blur(15px);
+    animation: bubbleFloat infinite linear;
+}
+
+@keyframes bubbleFloat {
+    from {
+        transform: translateY(100vh);
+    }
+    to {
+        transform: translateY(-10vh);
+    }
+}
+
+/* 🔹 Wavy Footer (Layered Effect) */
+.wavy-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.wavy-footer svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 100px;
+}
+
+.wavy-footer .shape-fill {
+    fill: rgba(44, 62, 80, 0.2); /* Subtle wave color */
+}
+
 
 .container {
     max-width: 600px;
