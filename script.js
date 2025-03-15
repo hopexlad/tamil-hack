@@ -3,35 +3,26 @@ document.addEventListener("DOMContentLoaded", function () {
     const background = document.querySelector(".floating-background");
 
     function createLetter() {
-        if (!background) return; // Prevent errors if background is missing
+        if (!background) return; // Prevent errors if the background is missing
 
         const letter = document.createElement("div");
         letter.classList.add("tamil-letter");
         letter.innerText = tamilLetters[Math.floor(Math.random() * tamilLetters.length)];
 
-        // 🔹 Random position (width & height)
+        // Random position
         letter.style.left = Math.random() * 100 + "vw";
-        letter.style.top = Math.random() * 100 + "vh";
+        letter.style.animationDuration = Math.random() * 5 + 5 + "s"; // Random speed
 
-        // 🔹 Random speed (slower movement)
-        const speed = Math.random() * 10 + 10; // Between 10s and 20s
-        letter.style.animationDuration = `${speed}s`;
-
-        // 🔹 Randomized Font Size (Big & Small)
-        letter.style.fontSize = `${Math.random() * 3 + 1.5}rem`; // 1.5rem to 4.5rem
+        // 🔥 Randomized Font Size (Some Big, Some Small)
+        letter.style.fontSize = `${Math.random() * 4 + 1}rem`; 
 
         background.appendChild(letter);
 
-        // 🔹 Fade out smoothly
-        setTimeout(() => {
-            letter.style.opacity = "0";
-            setTimeout(() => letter.remove(), 3000); // Remove after fade
-        }, speed * 900); // Start fading before disappearing
+        // Remove letter after animation
+        setTimeout(() => letter.remove(), 6000);
     }
 
-    setInterval(createLetter, 1500); // Generate new letters every 1.5s
-});
-
+    setInterval(createLetter, 500); // Generate letters continuously
 
     // ✅ LESSONS FUNCTIONALITY
     const uyirLessons = [
