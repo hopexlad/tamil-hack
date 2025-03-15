@@ -8,41 +8,34 @@ document.addEventListener("DOMContentLoaded", function () {
         const letter = document.createElement("div");
         letter.classList.add("tamil-letter");
         letter.innerText = tamilLetters[Math.floor(Math.random() * tamilLetters.length)];
-
-        // 🔹 Random Position & Speed
         letter.style.left = Math.random() * 100 + "vw";
-        letter.style.animationDuration = Math.random() * 15 + 10 + "s"; // Slower speed (10s to 25s)
-
-        // 🔹 Randomized Size (Big & Small)
-        letter.style.fontSize = `${Math.random() * 3 + 1.5}rem`; 
+        letter.style.top = Math.random() * 100 + "vh";
+        letter.style.fontSize = `${Math.random() * 3 + 1.5}rem`;
+        letter.style.animationDuration = Math.random() * 15 + 10 + "s";
 
         background.appendChild(letter);
 
-        // 🔹 Smooth Fade Out
         setTimeout(() => {
             letter.style.opacity = "0";
             setTimeout(() => letter.remove(), 5000);
-        }, parseInt(letter.style.animationDuration) * 900);
+        }, parseFloat(letter.style.animationDuration) * 1000);
     }
 
     function createBlurBubble() {
         const bubble = document.createElement("div");
         bubble.classList.add("blur-bubble");
-
-        // 🔹 Random Position & Size
-        bubble.style.width = bubble.style.height = `${Math.random() * 100 + 30}px`;
+        const size = Math.random() * 100 + 30;
+        bubble.style.width = bubble.style.height = `${size}px`;
         bubble.style.left = Math.random() * 100 + "vw";
-        bubble.style.animationDuration = Math.random() * 20 + 10 + "s"; // Different speeds
+        bubble.style.top = Math.random() * 100 + "vh";
+        bubble.style.animationDuration = Math.random() * 20 + 10 + "s";
 
         background.appendChild(bubble);
-
-        setTimeout(() => bubble.remove(), parseInt(bubble.style.animationDuration) * 1000);
+        setTimeout(() => bubble.remove(), parseFloat(bubble.style.animationDuration) * 1000);
     }
 
-    setInterval(createLetter, 2000); // Generate Tamil letters every 2s
-    setInterval(createBlurBubble, 3000); // Generate blur bubbles every 3s
-});
-
+    setInterval(createLetter, 2000);
+    setInterval(createBlurBubble, 3000);
 
     // ✅ LESSONS FUNCTIONALITY
     const uyirLessons = [
@@ -60,25 +53,22 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentLesson = 0;
     let currentLessons = [];
 
-    function showPage(pageId) {
-    // Hide all pages
-    document.getElementById("homePage").style.display = "none";
-    document.getElementById("quizPage").style.display = "none";
-    document.getElementById("lessonPage").style.display = "none";
+   function showPage(pageId) {
+        document.querySelectorAll(".page").forEach(page => page.style.display = "none");
+        document.getElementById(pageId).style.display = "block";
+        document.querySelectorAll(".nav-link").forEach(link => link.classList.remove("active"));
+        document.querySelector(`[data-page='${pageId}']`)?.classList.add("active");
+    }
 
-    // Show the selected page
-    document.getElementById(pageId).style.display = "block";
+    window.goToLessons = function (type) {
+        document.getElementById("lessonTitle").textContent = type === "uyir" ? "UYIR YELUTHUKKAL" : "MEI YELUTHUKKAL";
+        showPage("lessonPage");
+    };
 
-    // Remove 'active' class from all navigation links
-    document.querySelectorAll(".nav-link").forEach(link => link.classList.remove("active"));
-
-    // Find the link that corresponds to the clicked page and add 'active' class
-    document.querySelector(`.nav-link[onclick="showPage('${pageId}')"]`)?.classList.add("active");
-}
-
-// Make function accessible globally
-window.showPage = showPage;
-
+    window.goHome = function () {
+        showPage("homePage");
+    };
+});
 
     function goToLessons(type) {
         currentLessons = (type === "uyir") ? uyirLessons : maeiLessons;
