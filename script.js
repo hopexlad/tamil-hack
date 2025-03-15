@@ -37,7 +37,6 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(createLetter, 2000);
     setInterval(createBlurBubble, 3000);
 
-    // ✅ LESSONS FUNCTIONALITY
     const uyirLessons = [
         { tamil: "அ", transliteration: "a", audio: "audio/a.mp3" },
         { tamil: "ஆ", transliteration: "aa", audio: "audio/aa.mp3" },
@@ -53,147 +52,63 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentLesson = 0;
     let currentLessons = [];
 
-   function showPage(pageId) {
-        document.querySelectorAll(".page").forEach(page => page.style.display = "none");
+    function showPage(pageId) {
+        document.querySelectorAll("#homePage, #quizPage, #lessonPage").forEach(page => page.style.display = "none");
         document.getElementById(pageId).style.display = "block";
+
         document.querySelectorAll(".nav-link").forEach(link => link.classList.remove("active"));
-        document.querySelector(`[data-page='${pageId}']`)?.classList.add("active");
+        document.querySelector(`.nav-link[onclick="showPage('${pageId}')"]`)?.classList.add("active");
     }
 
-    window.goToLessons = function (type) {
-        document.getElementById("lessonTitle").textContent = type === "uyir" ? "UYIR YELUTHUKKAL" : "MEI YELUTHUKKAL";
-        showPage("lessonPage");
-    };
-
-    window.goHome = function () {
-        showPage("homePage");
-    };
-});
+    window.showPage = showPage;
 
     function goToLessons(type) {
         currentLessons = (type === "uyir") ? uyirLessons : maeiLessons;
-        document.getElementById("lessonTitle").textContent =
-            (type === "uyir") ? "UYIR YELUTHUKKAL" : "MAEI YELUTHUKKAL";
-
-        showPage("lessonPage");
+        document.getElementById("lessonTitle").textContent = (type === "uyir") ? "UYIR YELUTHUKKAL" : "MAEI YELUTHUKKAL";
         currentLesson = 0;
+        showPage("lessonPage");
         updateLesson();
     }
 
-    function goHome() {
-        showPage("homePage");
-    }
+    window.goToLessons = goToLessons;
+    window.goHome = () => showPage("homePage");
 
     function updateLesson() {
-        document.getElementById("tamilCharacter").textContent = currentLessons[currentLesson].tamil;
-        document.getElementById("transliteration").textContent = currentLessons[currentLesson].transliteration;
-        document.getElementById("audioPlayer").src = currentLessons[currentLesson].audio;
-        document.getElementById("progressBar").style.width =
-            `${((currentLesson + 1) / currentLessons.length) * 100}%`;
-
-        document.getElementById("progressText").textContent = `${currentLesson + 1}/${currentLessons.length}`;
+        const lesson = currentLessons[currentLesson];
+        document.getElementById("tamilCharacter").innerText = lesson.tamil;
+        document.getElementById("transliteration").innerText = lesson.transliteration;
+        document.getElementById("audioPlayer").src = lesson.audio;
+        document.getElementById("progressBar").style.width = `${((currentLesson + 1) / currentLessons.length) * 100}%`;
+        document.getElementById("progressText").innerText = `${currentLesson + 1}/${currentLessons.length}`;
         clearCanvas();
     }
 
-    function playAudio() {
-        document.getElementById("audioPlayer").play();
-    }
+    window.nextLesson = () => { if (currentLesson < currentLessons.length - 1) { currentLesson++; updateLesson(); } };
+    window.prevLesson = () => { if (currentLesson > 0) { currentLesson--; updateLesson(); } };
+    window.playAudio = () => document.getElementById("audioPlayer").play();
 
-    function nextLesson() {
-        if (currentLesson < currentLessons.length - 1) {
-            currentLesson++;
-            updateLesson();
-        }
-    }
-
-    function prevLesson() {
-        if (currentLesson > 0) {
-            currentLesson--;
-            updateLesson();
-        }
-    }
-
-    // ✅ FIX CANVAS ISSUES
     const canvas = document.getElementById("writingCanvas");
     if (canvas) {
         const ctx = canvas.getContext("2d");
-
-        function setCanvasSize() {
-            canvas.width = canvas.clientWidth || 300;
-            canvas.height = canvas.clientHeight || 300;
-        }
+        const setCanvasSize = () => { canvas.width = 300; canvas.height = 300; };
         setCanvasSize();
-        window.addEventListener("resize", setCanvasSize);
 
-        ctx.lineJoin = "round";
-        ctx.lineCap = "round";
-        ctx.strokeStyle = "black";
-        ctx.lineWidth = 5;
+        let drawing = false, lastX = 0, lastY = 0;
 
-        let isDrawing = false;
-        let lastX = 0;
-        let lastY = 0;
+        const clearCanvas = () => ctx.clearRect(0, 0, canvas.width, canvas.height);
+        window.clearCanvas = clearCanvas;
 
-        function clearCanvas() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        }
-
-        function startDrawing(event) {
-            event.preventDefault();
-            isDrawing = true;
-            const { x, y } = getCoordinates(event);
-            lastX = x;
-            lastY = y;
-        }
-
-        function stopDrawing() {
-            isDrawing = false;
-        }
-
-        function draw(event) {
-            if (!isDrawing) return;
-            event.preventDefault();
-
-            const { x, y } = getCoordinates(event);
+        canvas.addEventListener("mousedown", (e) => { drawing = true; lastX = e.offsetX; lastY = e.offsetY; });
+        canvas.addEventListener("mousemove", (e) => {
+            if (!drawing) return;
             ctx.beginPath();
             ctx.moveTo(lastX, lastY);
-            ctx.lineTo(x, y);
+            ctx.lineTo(e.offsetX, e.offsetY);
             ctx.stroke();
-            lastX = x;
-            lastY = y;
-        }
-
-        function getCoordinates(event) {
-            let rect = canvas.getBoundingClientRect();
-            let x, y;
-
-            if (event.touches) {
-                let touch = event.touches[0];
-                x = touch.clientX - rect.left;
-                y = touch.clientY - rect.top;
-            } else {
-                x = event.offsetX;
-                y = event.offsetY;
-            }
-            return { x, y };
-        }
-
-        // ✅ ATTACH EVENT LISTENERS SAFELY
-        canvas.addEventListener("mousedown", startDrawing);
-        canvas.addEventListener("mousemove", draw);
-        canvas.addEventListener("mouseup", stopDrawing);
-        canvas.addEventListener("mouseout", stopDrawing);
-
-        canvas.addEventListener("touchstart", startDrawing, { passive: false });
-        canvas.addEventListener("touchmove", draw, { passive: false });
-        canvas.addEventListener("touchend", stopDrawing);
+            lastX = e.offsetX;
+            lastY = e.offsetY;
+        });
+        canvas.addEventListener("mouseup", () => drawing = false);
+        canvas.addEventListener("mouseout", () => drawing = false);
     }
-
-    // ✅ Ensure functions are globally accessible
-    window.goToLessons = goToLessons;
-    window.goHome = goHome;
-    window.playAudio = playAudio;
-    window.nextLesson = nextLesson;
-    window.prevLesson = prevLesson;
-    if (canvas) window.clearCanvas = clearCanvas;
 });
