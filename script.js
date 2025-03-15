@@ -61,21 +61,24 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentLessons = [];
 
     function showPage(pageId) {
-        document.getElementById("homePage").style.display = "none";
-        document.getElementById("quizPage").style.display = "none";
-        document.getElementById("lessonPage").style.display = "none";
+    // Hide all pages
+    document.getElementById("homePage").style.display = "none";
+    document.getElementById("quizPage").style.display = "none";
+    document.getElementById("lessonPage").style.display = "none";
 
-        document.getElementById(pageId).style.display = "block";
+    // Show the selected page
+    document.getElementById(pageId).style.display = "block";
 
-        document.querySelectorAll(".nav-link").forEach(link => link.classList.remove("active"));
-        if (pageId === "homePage") {
-            document.querySelector(".nav-link:nth-child(1)").classList.add("active");
-        } else if (pageId === "quizPage") {
-            document.querySelector(".nav-link:nth-child(2)").classList.add("active");
-        }
-    }
+    // Remove 'active' class from all navigation links
+    document.querySelectorAll(".nav-link").forEach(link => link.classList.remove("active"));
 
-    window.showPage = showPage;
+    // Find the link that corresponds to the clicked page and add 'active' class
+    document.querySelector(`.nav-link[onclick="showPage('${pageId}')"]`)?.classList.add("active");
+}
+
+// Make function accessible globally
+window.showPage = showPage;
+
 
     function goToLessons(type) {
         currentLessons = (type === "uyir") ? uyirLessons : maeiLessons;
