@@ -44,26 +44,35 @@ button:hover {
     background: #3a7bc1;
     transform: translateY(-2px);
 }
-/* 🔹 Background with Floating Tamil Letters */
 .floating-background {
+    z-index: -1; /* If this doesn't work, try increasing the z-index */
     position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
     overflow: hidden;
-    z-index: -1;
-    background: #F7F8FC; /* Soft Background */
+    background: #F7F8FC;
+    pointer-events: none; /* Ensures it doesn't interfere with clicks */
 }
 
-/* 🔹 Floating Tamil Letters */
 .tamil-letter {
     position: absolute;
     font-weight: bold;
-    color: rgba(44, 62, 80, 0.3); /* Faded effect */
-    animation: floatAnimation linear infinite;
+    color: rgba(44, 62, 80, 0.3);
+    animation: floatAnimation 15s linear infinite;
     opacity: 0.8;
 }
+
+.blur-bubble {
+    position: absolute;
+    background: rgba(44, 62, 80, 0.15);
+    border-radius: 50%;
+    opacity: 0.4;
+    filter: blur(15px);
+    animation: bubbleFloat 20s linear infinite;
+}
+
 
 /* 🔹 Floating Animation - Slower Movement */
 @keyframes floatAnimation {
@@ -77,15 +86,7 @@ button:hover {
     }
 }
 
-/* 🔹 Blurred Bubbles */
-.blur-bubble {
-    position: absolute;
-    background: rgba(44, 62, 80, 0.15);
-    border-radius: 50%;
-    opacity: 0.4;
-    filter: blur(15px);
-    animation: bubbleFloat infinite linear;
-}
+
 
 @keyframes bubbleFloat {
     from {
