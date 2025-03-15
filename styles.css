@@ -44,78 +44,59 @@ button:hover {
     background: #3a7bc1;
     transform: translateY(-2px);
 }
+/* 🔹 Floating Background */
 .floating-background {
-    z-index: -1; /* If this doesn't work, try increasing the z-index */
     position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
     overflow: hidden;
+    z-index: -1;
     background: #F7F8FC;
-    pointer-events: none; /* Ensures it doesn't interfere with clicks */
 }
 
-.tamil-letter {
+.tamil-letter, .blur-bubble {
     position: absolute;
-    font-weight: bold;
-    color: rgba(44, 62, 80, 0.3);
     animation: floatAnimation 15s linear infinite;
-    opacity: 0.8;
 }
 
-.blur-bubble {
-    position: absolute;
-    background: rgba(44, 62, 80, 0.15);
-    border-radius: 50%;
-    opacity: 0.4;
-    filter: blur(15px);
-    animation: bubbleFloat 20s linear infinite;
-}
-
-
-/* 🔹 Floating Animation - Slower Movement */
 @keyframes floatAnimation {
-    from {
-        transform: translateY(100vh) rotate(0deg);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(-10vh) rotate(360deg);
-        opacity: 1;
-    }
+    from { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    to { transform: translateY(-10vh) rotate(360deg); opacity: 1; }
 }
 
-
-
-@keyframes bubbleFloat {
-    from {
-        transform: translateY(100vh);
-    }
-    to {
-        transform: translateY(-10vh);
-    }
+/* 🔹 Navbar */
+.navbar {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    background: var(--background-color);
+    padding: 10px;
 }
 
-/* 🔹 Wavy Footer (Layered Effect) */
+.nav-link {
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 18px;
+    padding: 10px 15px;
+}
+
+.nav-link.active {
+    font-weight: bold;
+}
+
+/* 🔹 Wavy Footer */
 .wavy-footer {
     position: absolute;
     bottom: 0;
     width: 100%;
-    overflow: hidden;
-    line-height: 0;
 }
 
-.wavy-footer svg {
-    position: relative;
-    display: block;
-    width: calc(100% + 1.3px);
-    height: 100px;
+.shape-fill {
+    fill: rgba(44, 62, 80, 0.2);
 }
 
-.wavy-footer .shape-fill {
-    fill: rgba(44, 62, 80, 0.2); /* Subtle wave color */
-}
 
 
 .container {
