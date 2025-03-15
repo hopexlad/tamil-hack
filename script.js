@@ -3,26 +3,46 @@ document.addEventListener("DOMContentLoaded", function () {
     const background = document.querySelector(".floating-background");
 
     function createLetter() {
-        if (!background) return; // Prevent errors if the background is missing
+        if (!background) return;
 
         const letter = document.createElement("div");
         letter.classList.add("tamil-letter");
         letter.innerText = tamilLetters[Math.floor(Math.random() * tamilLetters.length)];
 
-        // Random position
+        // 🔹 Random Position & Speed
         letter.style.left = Math.random() * 100 + "vw";
-        letter.style.animationDuration = Math.random() * 5 + 5 + "s"; // Random speed
+        letter.style.animationDuration = Math.random() * 15 + 10 + "s"; // Slower speed (10s to 25s)
 
-        // 🔥 Randomized Font Size (Some Big, Some Small)
-        letter.style.fontSize = `${Math.random() * 4 + 1}rem`; 
+        // 🔹 Randomized Size (Big & Small)
+        letter.style.fontSize = `${Math.random() * 3 + 1.5}rem`; 
 
         background.appendChild(letter);
 
-        // Remove letter after animation
-        setTimeout(() => letter.remove(), 6000);
+        // 🔹 Smooth Fade Out
+        setTimeout(() => {
+            letter.style.opacity = "0";
+            setTimeout(() => letter.remove(), 5000);
+        }, parseInt(letter.style.animationDuration) * 900);
     }
 
-    setInterval(createLetter, 500); // Generate letters continuously
+    function createBlurBubble() {
+        const bubble = document.createElement("div");
+        bubble.classList.add("blur-bubble");
+
+        // 🔹 Random Position & Size
+        bubble.style.width = bubble.style.height = `${Math.random() * 100 + 30}px`;
+        bubble.style.left = Math.random() * 100 + "vw";
+        bubble.style.animationDuration = Math.random() * 20 + 10 + "s"; // Different speeds
+
+        background.appendChild(bubble);
+
+        setTimeout(() => bubble.remove(), parseInt(bubble.style.animationDuration) * 1000);
+    }
+
+    setInterval(createLetter, 2000); // Generate Tamil letters every 2s
+    setInterval(createBlurBubble, 3000); // Generate blur bubbles every 3s
+});
+
 
     // ✅ LESSONS FUNCTIONALITY
     const uyirLessons = [
