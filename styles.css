@@ -52,28 +52,28 @@ button:hover {
     top: 0;
     left: 0;
     overflow: hidden;
-    z-index: -1; /* Ensures it stays behind content */
-    pointer-events: none;
+    z-index: -1; /* Keeps it behind the main content */
+    pointer-events: none; /* Prevents interaction */
 }
 
 /* 🔹 Tamil Letter Styling */
 .tamil-letter {
     position: absolute;
-    color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
     font-weight: bold;
     font-size: 2rem;
     opacity: 0.7;
     animation: floatUp linear infinite;
 }
 
-/* 🔹 Animation for Floating Up */
+/* 🔹 Floating Up Animation */
 @keyframes floatUp {
     from {
         transform: translateY(100vh) scale(0.8);
-        opacity: 0.9;
+        opacity: 1;
     }
     to {
-        transform: translateY(-10vh) scale(1.2);
+        transform: translateY(-10vh) scale(1.3);
         opacity: 0;
     }
 }
