@@ -8,17 +8,20 @@ document.addEventListener("DOMContentLoaded", function () {
         const letter = document.createElement("div");
         letter.classList.add("tamil-letter");
         letter.innerText = tamilLetters[Math.floor(Math.random() * tamilLetters.length)];
+
+        // Starting from bottom and moving upwards
         letter.style.left = Math.random() * 100 + "vw";
-        letter.style.top = Math.random() * 100 + "vh";
+        letter.style.bottom = "-10vh"; // Starts slightly below the viewport
         letter.style.fontSize = `${Math.random() * 3 + 1.5}rem`;
-        letter.style.animationDuration = Math.random() * 15 + 10 + "s";
+        letter.style.animationDuration = Math.random() * 8 + 5 + "s"; // Faster speed (5s to 13s)
 
         background.appendChild(letter);
 
+        // Smooth fade-out before disappearing
         setTimeout(() => {
             letter.style.opacity = "0";
-            setTimeout(() => letter.remove(), 5000);
-        }, parseFloat(letter.style.animationDuration) * 1000);
+            setTimeout(() => letter.remove(), 1000);
+        }, parseFloat(letter.style.animationDuration) * 900);
     }
 
     function createBlurBubble() {
@@ -27,15 +30,19 @@ document.addEventListener("DOMContentLoaded", function () {
         const size = Math.random() * 100 + 30;
         bubble.style.width = bubble.style.height = `${size}px`;
         bubble.style.left = Math.random() * 100 + "vw";
-        bubble.style.top = Math.random() * 100 + "vh";
-        bubble.style.animationDuration = Math.random() * 20 + 10 + "s";
+        bubble.style.bottom = "-10vh"; // Starts below screen
+        bubble.style.animationDuration = Math.random() * 15 + 8 + "s"; // Smooth floating effect
 
         background.appendChild(bubble);
         setTimeout(() => bubble.remove(), parseFloat(bubble.style.animationDuration) * 1000);
     }
 
-    setInterval(createLetter, 2000);
-    setInterval(createBlurBubble, 3000);
+    // Generate more letters per second
+    setInterval(createLetter, 1000); // More frequent appearance
+    setInterval(createBlurBubble, 1500); // More bubbles
+
+});
+
 
     const uyirLessons = [
         { tamil: "அ", transliteration: "a", audio: "audio/a.mp3" },
