@@ -44,36 +44,36 @@ button:hover {
     background: #3a7bc1;
     transform: translateY(-2px);
 }
-/* Floating Background */
-.floating-background {
+/* 🔹 Floating Tamil Letters Container */
+.floating-letters-container {
     position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
     overflow: hidden;
-    z-index: -1;
+    z-index: -1; /* Ensures it stays behind content */
     pointer-events: none;
 }
 
-/* Tamil Floating Letters */
+/* 🔹 Tamil Letter Styling */
 .tamil-letter {
     position: absolute;
+    color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
     font-weight: bold;
-    color: black; /* Tamil letters in black */
-    opacity: 1;
-    transition: opacity 1s ease-in-out;
-    animation: floatUp 7s linear forwards;
+    font-size: 2rem;
+    opacity: 0.7;
+    animation: floatUp linear infinite;
 }
 
-/* Floating Animation */
+/* 🔹 Animation for Floating Up */
 @keyframes floatUp {
     from {
-        transform: translateY(0);
-        opacity: 1;
+        transform: translateY(100vh) scale(0.8);
+        opacity: 0.9;
     }
     to {
-        transform: translateY(-120vh); /* Moves out of viewport */
+        transform: translateY(-10vh) scale(1.2);
         opacity: 0;
     }
 }
