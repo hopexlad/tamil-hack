@@ -53,16 +53,17 @@ button:hover {
     left: 0;
     overflow: hidden;
     z-index: -1;
+    pointer-events: none;
 }
 
-/* Floating Tamil Letters */
+/* Tamil Floating Letters */
 .tamil-letter {
     position: absolute;
     font-weight: bold;
-    color: black; /* Black color */
+    color: black; /* Tamil letters in black */
     opacity: 1;
     transition: opacity 1s ease-in-out;
-    animation: floatUp 6s linear infinite;
+    animation: floatUp 7s linear forwards;
 }
 
 /* Floating Animation */
@@ -72,10 +73,9 @@ button:hover {
         opacity: 1;
     }
     to {
-        transform: translateY(-120vh);
+        transform: translateY(-120vh); /* Moves out of viewport */
         opacity: 0;
     }
-}
 }
 
 /* 🔹 Navbar */
