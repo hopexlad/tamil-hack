@@ -44,7 +44,7 @@ button:hover {
     background: #3a7bc1;
     transform: translateY(-2px);
 }
-/* 🔹 Floating Background */
+/* Floating background container */
 .floating-background {
     position: fixed;
     width: 100%;
@@ -53,20 +53,52 @@ button:hover {
     left: 0;
     overflow: hidden;
     z-index: -1;
-   background: var(--primary-color);
+    background: #F7F8FC; /* Soft Background */
 }
 
-.tamil-letter, .blur-bubble {
-    color: #FFFFFF;
+/* Tamil Floating Letters */
+.tamil-letter {
     position: absolute;
-    animation: floatAnimation 15s linear infinite;
+    font-weight: bold;
+    color: rgba(44, 62, 80, 0.5); /* Adjusted transparency */
+    animation: floatUp linear infinite;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
 }
 
-@keyframes floatAnimation {
-    from { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-    to { transform: translateY(-10vh) rotate(360deg); opacity: 1; }
+/* Floating animation for letters */
+@keyframes floatUp {
+    from {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-120vh) scale(1.2); /* Moves beyond viewport */
+        opacity: 0;
+    }
 }
 
+/* Blur Bubbles */
+.blur-bubble {
+    position: absolute;
+    background: rgba(44, 62, 80, 0.15);
+    border-radius: 50%;
+    opacity: 0.6;
+    filter: blur(15px);
+    animation: bubbleFloat linear infinite;
+}
+
+/* Floating animation for bubbles */
+@keyframes bubbleFloat {
+    from {
+        transform: translateY(0) scale(1);
+        opacity: 0.7;
+    }
+    to {
+        transform: translateY(-120vh) scale(1.2);
+        opacity: 0;
+    }
+}
 /* 🔹 Navbar */
 .navbar {
     display: flex;
