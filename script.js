@@ -2,50 +2,32 @@ document.addEventListener("DOMContentLoaded", function () {
     const tamilLetters = ["அ", "ஆ", "இ", "உ", "எ", "ஏ", "ஒ", "ஓ", "ஃ", "க", "ச", "ட", "த", "ப", "ம", "ய", "ர", "ல"];
     const background = document.querySelector(".floating-background");
 
-    function createLetter() {
-        if (!background) return;
+    if (!background) {
+        console.error("❌ ERROR: .floating-background NOT FOUND!");
+        return;
+    }
 
+    function createLetter() {
         const letter = document.createElement("div");
         letter.classList.add("tamil-letter");
         letter.innerText = tamilLetters[Math.floor(Math.random() * tamilLetters.length)];
 
-        // Start position (below viewport)
+        // Start from bottom
         letter.style.left = Math.random() * 100 + "vw";
-        letter.style.bottom = "-5vh";  // Starts slightly below screen
+        letter.style.bottom = "-5vh"; // Starts below screen
+
+        // Random font size
         letter.style.fontSize = `${Math.random() * 3 + 1.5}rem`;
 
-        // Random animation duration for different speeds
-        const duration = Math.random() * 8 + 5; // Between 5s - 13s
-        letter.style.animationDuration = `${duration}s`;
-
         background.appendChild(letter);
+        console.log("✅ Letter Created:", letter.innerText);
 
-        // Remove letter after animation ends
-        setTimeout(() => letter.remove(), duration * 1000);
+        // Remove letter after animation
+        setTimeout(() => letter.remove(), 6000);
     }
 
-    function createBlurBubble() {
-        const bubble = document.createElement("div");
-        bubble.classList.add("blur-bubble");
-
-        // Start position (below viewport)
-        const size = Math.random() * 80 + 20; // Random size between 20px - 100px
-        bubble.style.width = bubble.style.height = `${size}px`;
-        bubble.style.left = Math.random() * 100 + "vw";
-        bubble.style.bottom = "-5vh"; // Starts below screen
-
-        // Random animation duration
-        const duration = Math.random() * 15 + 8; // Between 8s - 23s
-        bubble.style.animationDuration = `${duration}s`;
-
-        background.appendChild(bubble);
-
-        setTimeout(() => bubble.remove(), duration * 1000);
-    }
-
-    // Increase appearance rate for more letters
-    setInterval(createLetter, 500); // New letter every 0.5s
-    setInterval(createBlurBubble, 800); // New bubble every 0.8s
+    // ✅ Create More Letters Faster
+    setInterval(createLetter, 500);
 });
 
     const uyirLessons = [
