@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
     const tamilLetters = ["அ", "ஆ", "இ", "உ", "எ", "ஏ", "ஒ", "ஓ", "ஃ", "க", "ச", "ட", "த", "ப", "ம", "ய", "ர", "ல"];
-    const container = document.querySelector(".floating-letters-container");
+    const container = document.querySelector(".floating-background"); // ✅ Make sure this exists in HTML
 
     if (!container) {
-        console.error("❌ ERROR: .floating-letters-container NOT FOUND!");
+        console.error("❌ ERROR: .floating-background NOT FOUND!");
         return;
     }
 
@@ -12,27 +12,27 @@ document.addEventListener("DOMContentLoaded", function () {
         letter.classList.add("tamil-letter");
         letter.innerText = tamilLetters[Math.floor(Math.random() * tamilLetters.length)];
 
-        // Positioning: Start at the bottom with a random horizontal position
+        // ✅ Random starting position (bottom)
         letter.style.left = Math.random() * 100 + "vw";
-        letter.style.bottom = "-10vh"; // Start below screen
+        letter.style.bottom = "-5vh"; // Starts below screen
 
-        // Random font size between 1.5rem to 4rem
+        // ✅ Random size (1.5rem to 4rem)
         letter.style.fontSize = `${Math.random() * 2.5 + 1.5}rem`;
 
-        // Random opacity between 0.3 to 1
+        // ✅ Random opacity (0.3 to 1)
         letter.style.opacity = Math.random() * 0.7 + 0.3;
 
-        // Random animation duration between 6s and 12s
+        // ✅ Random animation duration (6s to 12s)
         const animationDuration = Math.random() * 6 + 6 + "s";
-        letter.style.animation = `floatUp ${animationDuration} linear infinite`;
+        letter.style.animation = `floatUp ${animationDuration} linear forwards`;
 
         container.appendChild(letter);
 
-        // Remove the letter after animation ends
+        // ✅ Remove letter after animation ends
         setTimeout(() => letter.remove(), parseFloat(animationDuration) * 1000);
     }
 
-    // Generate Tamil letters every 250ms
+    // ✅ Generate Tamil letters every 250ms
     setInterval(createLetter, 250);
 });
 
