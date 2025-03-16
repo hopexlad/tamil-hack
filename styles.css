@@ -44,6 +44,7 @@ button:hover {
     background: #3a7bc1;
     transform: translateY(-2px);
 }
+/* Floating Background */
 .floating-background {
     position: fixed;
     width: 100%;
@@ -52,29 +53,29 @@ button:hover {
     left: 0;
     overflow: hidden;
     z-index: -1;
-    background: #F7F8FC; /* Background color */
 }
 
-/* Tamil Floating Letters */
+/* Floating Tamil Letters */
 .tamil-letter {
     position: absolute;
     font-weight: bold;
-    color: rgba(44, 62, 80, 0.7); /* Darker for visibility */
-    animation: floatUp linear infinite;
+    color: black; /* Black color */
     opacity: 1;
     transition: opacity 1s ease-in-out;
+    animation: floatUp 6s linear infinite;
 }
 
-/* Floating animation for letters */
+/* Floating Animation */
 @keyframes floatUp {
     from {
-        transform: translateY(0) scale(1);
+        transform: translateY(0);
         opacity: 1;
     }
     to {
-        transform: translateY(-120vh) scale(1.2); /* Moves out of viewport */
+        transform: translateY(-120vh);
         opacity: 0;
     }
+}
 }
 
 /* 🔹 Navbar */
