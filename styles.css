@@ -55,50 +55,50 @@ button:hover {
     z-index: -1;
     background: #F7F8FC; /* Soft Background */
 }
-
-/* Tamil Floating Letters */
+/* 🔹 Floating Tamil Letters */
 .tamil-letter {
     position: absolute;
     font-weight: bold;
-    color: rgba(44, 62, 80, 0.5); /* Adjusted transparency */
-    animation: floatUp linear infinite;
+    color: rgba(44, 62, 80, 0.7); /* Darker for better visibility */
+    animation: floatUp 10s linear infinite; /* Move up smoothly */
     opacity: 1;
-    transition: opacity 1s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
 }
 
-/* Floating animation for letters */
+/* 🔹 Floating Animation for Tamil Letters */
 @keyframes floatUp {
     from {
-        transform: translateY(0) scale(1);
+        transform: translateY(100vh) scale(1);
         opacity: 1;
     }
     to {
-        transform: translateY(-120vh) scale(1.2); /* Moves beyond viewport */
+        transform: translateY(-20vh) scale(1.2); /* Moves beyond viewport */
         opacity: 0;
     }
 }
 
-/* Blur Bubbles */
+/* 🔹 Floating Blur Bubbles */
 .blur-bubble {
     position: absolute;
-    background: rgba(44, 62, 80, 0.15);
+    background: rgba(44, 62, 80, 0.2);
     border-radius: 50%;
-    opacity: 0.6;
+    opacity: 0.5;
     filter: blur(15px);
-    animation: bubbleFloat linear infinite;
+    animation: bubbleFloat 12s linear infinite;
 }
 
-/* Floating animation for bubbles */
+/* 🔹 Floating Animation for Bubbles */
 @keyframes bubbleFloat {
     from {
-        transform: translateY(0) scale(1);
-        opacity: 0.7;
+        transform: translateY(100vh) scale(1);
+        opacity: 0.6;
     }
     to {
-        transform: translateY(-120vh) scale(1.2);
+        transform: translateY(-20vh) scale(1.1);
         opacity: 0;
     }
 }
+
 /* 🔹 Navbar */
 .navbar {
     display: flex;
