@@ -59,20 +59,20 @@ button:hover {
 .tamil-letter {
     position: absolute;
     font-weight: bold;
-    color: rgba(44, 62, 80, 0.7); /* Darker for better visibility */
-    animation: floatUp 10s linear infinite; /* Move up smoothly */
+    color: rgba(44, 62, 80, 0.8); /* Darker for better visibility */
+    animation: floatUp linear infinite;
     opacity: 1;
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 1s ease-in-out;
 }
 
 /* 🔹 Floating Animation for Tamil Letters */
 @keyframes floatUp {
     from {
-        transform: translateY(100vh) scale(1);
+        transform: translateY(0) scale(1);
         opacity: 1;
     }
     to {
-        transform: translateY(-20vh) scale(1.2); /* Moves beyond viewport */
+        transform: translateY(-110vh) scale(1.2); /* Moves fully beyond viewport */
         opacity: 0;
     }
 }
@@ -80,21 +80,21 @@ button:hover {
 /* 🔹 Floating Blur Bubbles */
 .blur-bubble {
     position: absolute;
-    background: rgba(44, 62, 80, 0.2);
+    background: rgba(44, 62, 80, 0.15);
     border-radius: 50%;
     opacity: 0.5;
     filter: blur(15px);
-    animation: bubbleFloat 12s linear infinite;
+    animation: bubbleFloat linear infinite;
 }
 
 /* 🔹 Floating Animation for Bubbles */
 @keyframes bubbleFloat {
     from {
-        transform: translateY(100vh) scale(1);
-        opacity: 0.6;
+        transform: translateY(0) scale(1);
+        opacity: 0.7;
     }
     to {
-        transform: translateY(-20vh) scale(1.1);
+        transform: translateY(-110vh) scale(1.2);
         opacity: 0;
     }
 }
