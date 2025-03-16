@@ -2,32 +2,25 @@ document.addEventListener("DOMContentLoaded", function () {
     const tamilLetters = ["அ", "ஆ", "இ", "உ", "எ", "ஏ", "ஒ", "ஓ", "ஃ", "க", "ச", "ட", "த", "ப", "ம", "ய", "ர", "ல"];
     const background = document.querySelector(".floating-background");
 
-    if (!background) {
-        console.error("❌ ERROR: .floating-background NOT FOUND!");
-        return;
-    }
-
     function createLetter() {
         const letter = document.createElement("div");
         letter.classList.add("tamil-letter");
         letter.innerText = tamilLetters[Math.floor(Math.random() * tamilLetters.length)];
 
-        // Start from bottom
+        // Positioning: Random horizontal position and starts from the bottom
         letter.style.left = Math.random() * 100 + "vw";
-        letter.style.bottom = "-5vh"; // Starts below screen
+        letter.style.bottom = "-5vh"; // Start slightly below screen
+        letter.style.fontSize = `${Math.random() * 2 + 1.5}rem`; // Random font size
 
-        // Random font size
-        letter.style.fontSize = `${Math.random() * 3 + 1.5}rem`;
-
+        // Append to background container
         background.appendChild(letter);
-        console.log("✅ Letter Created:", letter.innerText);
 
-        // Remove letter after animation
+        // Remove after animation completes
         setTimeout(() => letter.remove(), 6000);
     }
 
-    // ✅ Create More Letters Faster
-    setInterval(createLetter, 500);
+    // Generate letters every 400ms
+    setInterval(createLetter, 400);
 });
 
     const uyirLessons = [
