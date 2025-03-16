@@ -44,7 +44,7 @@ button:hover {
     background: #3a7bc1;
     transform: translateY(-2px);
 }
-/* Floating background container */
+/* 🔹 Floating Background */
 .floating-background {
     position: fixed;
     width: 100%;
@@ -52,49 +52,28 @@ button:hover {
     top: 0;
     left: 0;
     overflow: hidden;
-    z-index: -1;
-    background: #F7F8FC; /* Soft Background */
+    z-index: 10; /* Ensure it's above background */
+    pointer-events: none; /* Prevent interaction */
 }
-/* 🔹 Floating Tamil Letters */
+
+/* 🔹 Tamil Floating Letters */
 .tamil-letter {
     position: absolute;
     font-weight: bold;
-    color: rgba(44, 62, 80, 0.8); /* Darker for better visibility */
-    animation: floatUp linear infinite;
+    color: rgba(255, 0, 0, 1); /* Bright red for testing */
+    font-size: 2rem;
     opacity: 1;
-    transition: opacity 1s ease-in-out;
+    animation: floatUp 6s linear infinite;
 }
 
 /* 🔹 Floating Animation for Tamil Letters */
 @keyframes floatUp {
     from {
-        transform: translateY(0) scale(1);
+        transform: translateY(0);
         opacity: 1;
     }
     to {
-        transform: translateY(-110vh) scale(1.2); /* Moves fully beyond viewport */
-        opacity: 0;
-    }
-}
-
-/* 🔹 Floating Blur Bubbles */
-.blur-bubble {
-    position: absolute;
-    background: rgba(44, 62, 80, 0.15);
-    border-radius: 50%;
-    opacity: 0.5;
-    filter: blur(15px);
-    animation: bubbleFloat linear infinite;
-}
-
-/* 🔹 Floating Animation for Bubbles */
-@keyframes bubbleFloat {
-    from {
-        transform: translateY(0) scale(1);
-        opacity: 0.7;
-    }
-    to {
-        transform: translateY(-110vh) scale(1.2);
+        transform: translateY(-120vh);
         opacity: 0;
     }
 }
