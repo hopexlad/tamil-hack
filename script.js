@@ -8,20 +8,19 @@ document.addEventListener("DOMContentLoaded", function () {
         const letter = document.createElement("div");
         letter.classList.add("tamil-letter");
         letter.innerText = tamilLetters[Math.floor(Math.random() * tamilLetters.length)];
-
-        // Starting from bottom and moving upwards
+        
+        // Start from below the viewport
         letter.style.left = Math.random() * 100 + "vw";
-        letter.style.bottom = "-10vh"; // Starts slightly below the viewport
+        letter.style.bottom = "-10vh"; 
         letter.style.fontSize = `${Math.random() * 3 + 1.5}rem`;
-        letter.style.animationDuration = Math.random() * 8 + 5 + "s"; // Faster speed (5s to 13s)
+        letter.style.animationDuration = Math.random() * 8 + 5 + "s"; // Speed range (5s to 13s)
 
         background.appendChild(letter);
 
-        // Smooth fade-out before disappearing
+        // Remove letters after animation completes
         setTimeout(() => {
-            letter.style.opacity = "0";
-            setTimeout(() => letter.remove(), 1000);
-        }, parseFloat(letter.style.animationDuration) * 900);
+            letter.remove();
+        }, parseFloat(letter.style.animationDuration) * 1000);
     }
 
     function createBlurBubble() {
@@ -30,17 +29,17 @@ document.addEventListener("DOMContentLoaded", function () {
         const size = Math.random() * 100 + 30;
         bubble.style.width = bubble.style.height = `${size}px`;
         bubble.style.left = Math.random() * 100 + "vw";
-        bubble.style.bottom = "-10vh"; // Starts below screen
-        bubble.style.animationDuration = Math.random() * 15 + 8 + "s"; // Smooth floating effect
+        bubble.style.bottom = "-10vh"; 
+        bubble.style.animationDuration = Math.random() * 12 + 8 + "s"; 
 
         background.appendChild(bubble);
+
         setTimeout(() => bubble.remove(), parseFloat(bubble.style.animationDuration) * 1000);
     }
 
-    // Generate more letters per second
-    setInterval(createLetter, 1000); // More frequent appearance
-    setInterval(createBlurBubble, 1500); // More bubbles
-
+    // Increase frequency of letters appearing
+    setInterval(createLetter, 600); // Every 0.6s
+    setInterval(createBlurBubble, 1000); // Every 1s
 });
 
 
