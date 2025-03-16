@@ -14,25 +14,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Positioning: Start at the bottom with a random horizontal position
         letter.style.left = Math.random() * 100 + "vw";
-        letter.style.bottom = "-5vh"; // Start below the screen
+        letter.style.bottom = "-10vh"; // Start below screen
 
         // Random font size between 1.5rem to 4rem
         letter.style.fontSize = `${Math.random() * 2.5 + 1.5}rem`;
 
-        // Random opacity between 0.3 to 0.9
-        letter.style.opacity = Math.random() * 0.6 + 0.3;
+        // Random opacity between 0.3 to 1
+        letter.style.opacity = Math.random() * 0.7 + 0.3;
 
         // Random animation duration between 6s and 12s
-        letter.style.animationDuration = Math.random() * 6 + 6 + "s";
+        const animationDuration = Math.random() * 6 + 6 + "s";
+        letter.style.animation = `floatUp ${animationDuration} linear infinite`;
 
         container.appendChild(letter);
 
         // Remove the letter after animation ends
-        setTimeout(() => letter.remove(), parseInt(letter.style.animationDuration) * 1000);
+        setTimeout(() => letter.remove(), parseFloat(animationDuration) * 1000);
     }
 
-    // Generate Tamil letters every 300ms
-    setInterval(createLetter, 300);
+    // Generate Tamil letters every 250ms
+    setInterval(createLetter, 250);
 });
 
     const uyirLessons = [
