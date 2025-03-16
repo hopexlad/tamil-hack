@@ -17,9 +17,33 @@ body {
     margin: 0;
     padding: 0;
     color: var(--text-color);
-     /* ✅ Add Background Image */
     background: url("bg.png") no-repeat center center fixed;
-    background-size: cover; /* Ensures it covers the entire screen */
+    background-size: cover;
+    overflow: hidden; /* Ensures floating elements don't cause scrollbars */
+}
+
+/* 🔹 Floating Tamil Letters Effect */
+.floating-letters {
+    position: absolute;
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--accent-color);
+    opacity: 0.8;
+    animation: floatAnimation 6s linear infinite;
+}
+
+@keyframes floatAnimation {
+    0% {
+        transform: translateY(100vh) translateX(0);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-10vh) translateX(10px);
+        opacity: 0;
+    }
 }
 
 h1, h2 {
@@ -27,9 +51,11 @@ h1, h2 {
 }
 
 button {
-    background: var(--primary-color);
-    color: white;
-    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--text-color);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 12px 18px;
     margin: 12px;
     font-size: 16px;
@@ -37,44 +63,19 @@ button {
     border-radius: var(--border-radius);
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow), 0px 4px 12px rgba(255, 255, 255, 0.2);
 }
 
 button:hover {
-    background: #3a7bc1;
+    background: rgba(255, 255, 255, 0.3);
     transform: translateY(-2px);
-}/* 🔹 Floating Tamil Letters Container */
-.floating-letters-container {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    z-index: -1; /* Keeps it behind content */
-    pointer-events: none; /* Prevents interaction */
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: var(--shadow), 0px 6px 14px rgba(255, 255, 255, 0.3);
 }
 
-/* 🔹 Tamil Letters Styling */
-.tamil-letter {
-    position: absolute;
-    color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
-    font-weight: bold;
-    font-size: 2rem;
-    opacity: 0.7;
-    animation: floatUp linear infinite;
-}
-
-/* 🔹 Animation: Bottom to Top */
-@keyframes floatUp {
-    from {
-        transform: translateY(100vh) scale(0.8);
-        opacity: 1;
-    }
-    to {
-        transform: translateY(-10vh) scale(1.3);
-        opacity: 0;
-    }
+button:active {
+    transform: translateY(0);
+    box-shadow: none;
 }
 
 /* 🔹 Navbar */
@@ -112,7 +113,6 @@ button:hover {
     opacity: 0.9;
 }
 
-/* 🔹 Proper wave positioning */
 .waves {
     position: absolute;
     bottom: 0;
@@ -121,17 +121,15 @@ button:hover {
     overflow: hidden;
 }
 
-/* 🔹 Applying wave effect */
 .wave {
     position: absolute;
-    width: 200%; /* Ensures smooth looping */
+    width: 200%;
     height: 100%;
     background-repeat: repeat-x;
     background-position: 0 bottom;
     transform-origin: center bottom;
 }
 
-/* 🔹 Different speeds for waves */
 .line-1 .wave {
     animation: animateWave 29s linear infinite;
 }
@@ -146,7 +144,6 @@ button:hover {
     bottom: 29;
 }
 
-/* 🔹 Smooth infinite wave movement */
 @keyframes animateWave {
     0% {
         transform: translateX(0) translateZ(0) scaleY(1);
@@ -158,7 +155,6 @@ button:hover {
         transform: translateX(-50%) translateZ(0) scaleY(1);
     }
 }
-
 
 .container {
     max-width: 600px;
@@ -214,120 +210,4 @@ button:hover {
     font-size: 18px;
     font-weight: bold;
     margin-top: 10px;
-}
-
-.navbar {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    background: var(--background-color);
-    padding: 10px;
-    position: relative;
-}
-
-.nav-link {
-    text-decoration: none;
-    color: var(--text-color);
-    font-size: 18px;
-    font-weight: 600;
-    padding: 10px 15px;
-    position: relative;
-    transition: color 0.3s ease-in-out;
-}
-
-.nav-link::after {
-    content: "";
-    display: block;
-    height: 3px;
-    width: 0;
-    background: var(--primary-color);
-    position: absolute;
-    bottom: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: width 0.3s ease-in-out;
-}
-
-.nav-link:hover::after,
-.nav-link.active::after {
-    width: 100%;
-}
-
-
-
-#homePage.active ~ .indicator {
-    transform: translateX(0);
-}
-
-#quizPage.active ~ .indicator {
-    transform: translateX(100%);
-}
-
-/* 🔹 Section Divider */
-.section-divider {
-    width: 50%;
-    height: 2px;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0), #333, rgba(0, 0, 0, 0));
-    margin: 10px auto;
-    border: none;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-/* 🔹 Centered Content */
-.card {
-    background: var(--card-bg);
-    padding: 24px;
-    margin: 20px auto;
-    width: 85%;
-    max-width: 420px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-}
-
-/* 🔹 Canvas Centering */
-#canvasContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 70vh;
-}
-
-canvas {
-    border: 2px solid black;
-    background: white;
-    width: 280px;
-    height: 280px;
-    touch-action: none;
-}
-
-/* 🔹 Word Boxes */
-.word-box {
-    border: 1px solid var(--primary-color);
-    border-radius: var(--border-radius);
-    padding: 8px;
-    margin: 6px 0;
-    background-color: var(--card-bg);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: var(--shadow);
-}
-
-/* 🔹 Option Buttons */
-.option-btn {
-    display: block;
-    width: 90%;
-    padding: 10px;
-    margin: 5px auto;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    background-color: var(--primary-color);
-    color: white;
-    text-align: center;
-}
-
-.option-btn:disabled {
-    cursor: not-allowed;
-    opacity: 0.7;
 }
