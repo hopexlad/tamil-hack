@@ -43,30 +43,29 @@ button {
 button:hover {
     background: #3a7bc1;
     transform: translateY(-2px);
-}
-/* ✅ Floating Tamil Letters Container */
-.floating-background {
+}/* 🔹 Floating Tamil Letters Container */
+.floating-letters-container {
     position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
     overflow: hidden;
-    z-index: -1; /* Keeps it behind the main content */
+    z-index: -1; /* Keeps it behind content */
     pointer-events: none; /* Prevents interaction */
 }
 
-/* ✅ Tamil Letter Styling */
+/* 🔹 Tamil Letters Styling */
 .tamil-letter {
     position: absolute;
-    color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+    color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
     font-weight: bold;
     font-size: 2rem;
     opacity: 0.7;
     animation: floatUp linear infinite;
 }
 
-/* ✅ Floating Up Animation */
+/* 🔹 Animation: Bottom to Top */
 @keyframes floatUp {
     from {
         transform: translateY(100vh) scale(0.8);
