@@ -8,40 +8,45 @@ document.addEventListener("DOMContentLoaded", function () {
         const letter = document.createElement("div");
         letter.classList.add("tamil-letter");
         letter.innerText = tamilLetters[Math.floor(Math.random() * tamilLetters.length)];
-        
-        // Start from below the viewport
+
+        // Start position (below viewport)
         letter.style.left = Math.random() * 100 + "vw";
-        letter.style.bottom = "-10vh"; 
+        letter.style.bottom = "-5vh";  // Starts slightly below screen
         letter.style.fontSize = `${Math.random() * 3 + 1.5}rem`;
-        letter.style.animationDuration = Math.random() * 8 + 5 + "s"; // Speed range (5s to 13s)
+
+        // Random animation duration for different speeds
+        const duration = Math.random() * 8 + 5; // Between 5s - 13s
+        letter.style.animationDuration = `${duration}s`;
 
         background.appendChild(letter);
 
-        // Remove letters after animation completes
-        setTimeout(() => {
-            letter.remove();
-        }, parseFloat(letter.style.animationDuration) * 1000);
+        // Remove letter after animation ends
+        setTimeout(() => letter.remove(), duration * 1000);
     }
 
     function createBlurBubble() {
         const bubble = document.createElement("div");
         bubble.classList.add("blur-bubble");
-        const size = Math.random() * 100 + 30;
+
+        // Start position (below viewport)
+        const size = Math.random() * 80 + 20; // Random size between 20px - 100px
         bubble.style.width = bubble.style.height = `${size}px`;
         bubble.style.left = Math.random() * 100 + "vw";
-        bubble.style.bottom = "-10vh"; 
-        bubble.style.animationDuration = Math.random() * 12 + 8 + "s"; 
+        bubble.style.bottom = "-5vh"; // Starts below screen
+
+        // Random animation duration
+        const duration = Math.random() * 15 + 8; // Between 8s - 23s
+        bubble.style.animationDuration = `${duration}s`;
 
         background.appendChild(bubble);
 
-        setTimeout(() => bubble.remove(), parseFloat(bubble.style.animationDuration) * 1000);
+        setTimeout(() => bubble.remove(), duration * 1000);
     }
 
-    // Increase frequency of letters appearing
-    setInterval(createLetter, 600); // Every 0.6s
-    setInterval(createBlurBubble, 1000); // Every 1s
+    // Increase appearance rate for more letters
+    setInterval(createLetter, 500); // New letter every 0.5s
+    setInterval(createBlurBubble, 800); // New bubble every 0.8s
 });
-
 
     const uyirLessons = [
         { tamil: "அ", transliteration: "a", audio: "audio/a.mp3" },
