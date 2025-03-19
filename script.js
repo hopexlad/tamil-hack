@@ -1,33 +1,34 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const tamilLetters = "அஆஇஈஉஊஎஏஐஒஓஔகஙசஞடணதநபமயரலவஶஷஸஹ".split("");
-    const container = document.querySelector(".floating-container");
+function startFloatingLetters() {
+    const tamilLetters = ["அ", "ஆ", "இ", "உ", "எ", "ஏ", "ஒ", "ஓ", "ஃ", "க", "ச", "ட", "த", "ப", "ம", "ய", "ர", "ல"];
 
     function createFloatingLetter() {
-        const letter = document.createElement("span");
-        letter.classList.add("tamil-letter");
+        const letter = document.createElement("div");
+        letter.classList.add("floating-letter");
         letter.innerText = tamilLetters[Math.floor(Math.random() * tamilLetters.length)];
 
-        // Random position at the bottom of the screen
-        letter.style.left = `${Math.random() * 100}vw`;
-        letter.style.bottom = `-10vh`;
+        // Random horizontal position (within the viewport)
+        letter.style.left = Math.random() * 100 + "vw";
+        
+        // Random font size (1.5rem - 4rem)
+        letter.style.fontSize = `${Math.random() * 2.5 + 1.5}rem`;
 
-        // Random size and opacity
-        letter.style.fontSize = `${Math.random() * 20 + 15}px`;
-        letter.style.opacity = Math.random() * 0.5 + 0.3;
+        // Random opacity (0.3 - 1)
+        letter.style.opacity = Math.random() * 0.7 + 0.3;
 
-        // Random animation duration
-        const duration = Math.random() * 5 + 5;
-        letter.style.animationDuration = `${duration}s`;
+        // Random animation duration (5s - 10s)
+        const animationDuration = Math.random() * 5 + 5 + "s";
+        letter.style.animation = `floatUp ${animationDuration} linear`;
 
-        container.appendChild(letter);
+        document.body.appendChild(letter);
 
-        // Remove after animation
-        setTimeout(() => letter.remove(), duration * 1000);
+        // Remove the letter after animation ends
+        setTimeout(() => letter.remove(), parseFloat(animationDuration) * 1000);
     }
 
-    // Generate letters every 300ms
-    setInterval(createFloatingLetter, 300);
-});
+    // Generate Tamil letters every 800ms
+    setInterval(createFloatingLetter, 800);
+}
+
 const uyirLessons = [
     { tamil: "அ", transliteration: "a", audio: "audio/a.mp3" },
     { tamil: "ஆ", transliteration: "aa", audio: "audio/aa.mp3" },
