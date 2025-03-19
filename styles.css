@@ -25,26 +25,24 @@ body {
 /* 🔹 Floating Tamil Letters Effect */
 .floating-letters {
     position: absolute;
-    font-size: 32px;
+    color: rgba(0, 0, 0, 0.6); /* Black with transparency */
     font-weight: bold;
-    color: var(--accent-color);
-    opacity: 0.8;
-    animation: floatAnimation 6s linear infinite;
+    animation: floatUp 6s linear infinite;
+    white-space: nowrap; /* Prevents text wrapping */
 }
 
-@keyframes floatAnimation {
-    0% {
-        transform: translateY(100vh) translateX(0);
-        opacity: 0;
-    }
-    50% {
+/* 🔹 Floating Animation */
+@keyframes floatUp {
+    from {
+        transform: translateY(100vh) scale(1);
         opacity: 1;
     }
-    100% {
-        transform: translateY(-10vh) translateX(10px);
+    to {
+        transform: translateY(-10vh) scale(1.2); /* Moves up beyond viewport */
         opacity: 0;
     }
 }
+
 
 h1, h2 {
     font-weight: 600;
